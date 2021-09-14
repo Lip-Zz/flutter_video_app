@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 enum HttpMethod { GET, POST, DELETE, PUT }
 
 abstract class BaseRequest {

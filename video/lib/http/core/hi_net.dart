@@ -1,3 +1,4 @@
+import 'package:video/http/core/dio_adapter.dart';
 import 'package:video/http/core/hi_error.dart';
 import 'package:video/http/core/hi_net_adapter.dart';
 import 'package:video/http/core/mock_adapter.dart';
@@ -25,8 +26,11 @@ class HiNET {
     printLog("请求类型(method):${request.httpMethod()}");
     printLog("请求头(header):${request.header}");
     printLog("请求参数(params):${request.params}");
-    HiNETAdapter adpter = MockAdapter();
-    return adpter.send(request);
+    // HiNETAdapter adpter = MockAdapter();
+    // return adpter.send(request);
+
+    DioAdapter adapter = DioAdapter();
+    return adapter.send(request);
   }
 
   /// 发送请求
