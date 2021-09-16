@@ -9,6 +9,7 @@ import 'package:video/httpUtils/dao/login_dao.dart';
 import 'package:video/httpUtils/request/notice_request.dart';
 import 'package:video/model/owner.dart';
 import 'package:video/httpUtils/request/test_request.dart';
+import 'package:video/page/login_page.dart';
 import 'package:video/page/register_page.dart';
 import 'package:video/util/color.dart';
 

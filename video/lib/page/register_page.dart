@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:video/httpUtils/dao/login_dao.dart';
 import 'package:video/util/string_util.dart';
+import 'package:video/util/toast.dart';
 import 'package:video/wiget/appbar.dart';
+import 'package:video/wiget/login_button.dart';
 import 'package:video/wiget/login_effect.dart';
 import 'package:video/wiget/login_input.dart';
 
@@ -110,15 +112,16 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   _loginButton() {
-    return InkWell(
-      onTap: () {
+    return LoginButton(
+      "注册",
+      enable: this.loginEnable,
+      onPressed: () {
         if (this.loginEnable) {
           _checkParams();
         } else {
-          print("参数错误");
+          showWarnToast("参数错误");
         }
       },
-      child: Text("注册"),
     );
   }
 
@@ -126,11 +129,12 @@ class _RegisterPageState extends State<RegisterPage> {
     try {
       var result = await LoginDao.register(this.username!, this.pwd!, this.id!);
       if (result['code'] == 0) {
+        showToast("注册成功");
         if (widget.onJumpToLogin != null) {
           widget.onJumpToLogin!();
         }
       } else {
-        print(result['msg']);
+        showWarnToast(result['msg']);
       }
     } catch (e) {
       print(e);
@@ -141,7 +145,7 @@ class _RegisterPageState extends State<RegisterPage> {
     if (this.pwd == this.repwd) {
       _send();
     } else {
-      print("两次输入的密码不一致");
+      showWarnToast("两次输入的密码不一致");
       return;
     }
   }

@@ -31,6 +31,7 @@ dependencies:
   json_annotation: ^4.1.0
   shared_preferences: ^2.0.7
   http: ^0.13.3
+  fluttertoast: ^8.0.8
 
 dev_dependencies:
   flutter_test:
