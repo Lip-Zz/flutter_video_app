@@ -1,7 +1,14 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:video/http/core/hi_error.dart';
-import 'package:video/http/core/hi_net.dart';
-import 'package:video/http/request/test_request.dart';
+import 'package:video/db/hi_cache.dart';
+import 'package:video/httpUtils/core/hi_error.dart';
+import 'package:video/httpUtils/core/hi_net.dart';
+import 'package:video/httpUtils/dao/login_dao.dart';
+import 'package:video/httpUtils/request/notice_request.dart';
+import 'package:video/model/owner.dart';
+import 'package:video/httpUtils/request/test_request.dart';
 
 void main() {
   runApp(MyApp());
@@ -50,21 +57,78 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  @override
+  void initState() {
+    super.initState();
+    HiCache.preInit();
+  }
 
   void _incrementCounter() async {
-    TestRequest request = TestRequest()
-      ..addHeader("k", "v")
-      ..add("1", "2");
+    // TestRequest request = TestRequest()
+    //   ..addHeader("k", "v")
+    //   ..add("1", "2");
+    // try {
+    //   var result = await HiNET.getInstance().fire(request);
+    //   print(result);
+    // } on NeedAuth catch (e) {
+    //   print(e);
+    // } on NeedLogin catch (e) {
+    //   print(e);
+    // } on HiNETError catch (e) {
+    //   print(e);
+    // }
+
+    // testJson();
+    // test1();
+    //test2();
+    //test3();
+    // test4();
+    test5();
+  }
+
+  void test5() async {
     try {
-      var result = await HiNET.getInstance().fire(request);
+      var result = await HiNET.getInstance().fire(NoticeRequest());
       print(result);
-    } on NeedAuth catch (e) {
-      print(e);
-    } on NeedLogin catch (e) {
-      print(e);
-    } on HiNETError catch (e) {
+    } catch (e) {
       print(e);
     }
+  }
+
+  void test4() async {
+    try {
+      var result = await LoginDao.login("1", "2");
+      print(result);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void test3() async {
+    try {
+      var result = await LoginDao.register("1", "2", "3");
+      print(result);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  void test2() {
+    HiCache.getInstance().setString("aa", "124124fsdf");
+    print("hicache:${HiCache.getInstance().get<String>("aa")}");
+  }
+
+  void test1() {
+    var ownerMap = {"name": "112312", "face": "2", "fans": 0};
+    Owner o = Owner.fromJson(ownerMap);
+    print("json:${o.name}");
+  }
+
+  void testJson() {
+    var json = "{\"name\":\"flutter\"}";
+    Map<String, dynamic> jsonMap = jsonDecode(json);
+    print(jsonMap["name"]);
+    print(jsonEncode(jsonMap));
   }
 
   @override

@@ -1,5 +1,5 @@
-import 'package:video/http/core/hi_net_adapter.dart';
-import 'package:video/http/request/base_request.dart';
+import 'package:video/httpUtils/core/hi_net_adapter.dart';
+import 'package:video/httpUtils/request/base_request.dart';
 
 class MockAdapter extends HiNETAdapter {
   @override

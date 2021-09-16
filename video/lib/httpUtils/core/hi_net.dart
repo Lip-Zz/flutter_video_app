@@ -1,8 +1,8 @@
-import 'package:video/http/core/dio_adapter.dart';
-import 'package:video/http/core/hi_error.dart';
-import 'package:video/http/core/hi_net_adapter.dart';
-import 'package:video/http/core/mock_adapter.dart';
-import 'package:video/http/request/base_request.dart';
+import 'package:video/httpUtils/core/dio_adapter.dart';
+import 'package:video/httpUtils/core/hi_error.dart';
+import 'package:video/httpUtils/core/hi_net_adapter.dart';
+import 'package:video/httpUtils/core/mock_adapter.dart';
+import 'package:video/httpUtils/request/base_request.dart';
 
 class HiNET {
   HiNET._();
@@ -21,7 +21,7 @@ class HiNET {
   //   return _instance!;
   // }
 
-  Future<dynamic> send<T>(BaseRequest request) async {
+  Future<HiNETResponse<T>> send<T>(BaseRequest request) async {
     printLog("请求地址(url):${request.url()}");
     printLog("请求类型(method):${request.httpMethod()}");
     printLog("请求头(header):${request.header}");

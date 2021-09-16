@@ -1,14 +1,27 @@
+import 'dart:io';
+
+import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
-import 'package:video/http/core/hi_error.dart';
-import 'package:video/http/core/hi_net_adapter.dart';
-import 'package:video/http/request/base_request.dart';
+import 'package:video/httpUtils/core/hi_error.dart';
+import 'package:video/httpUtils/core/hi_net_adapter.dart';
+import 'package:video/httpUtils/request/base_request.dart';
 
 class DioAdapter extends HiNETAdapter {
   @override
   Future<HiNETResponse<T>> send<T>(BaseRequest request) async {
-    Response? response;
+    var response;
     var options = Options(headers: request.header);
     var error;
+
+    // Dio dio = Dio();
+    /// 请求忽略证书
+    // (dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+    //     (client) {
+    //   client.badCertificateCallback = (cert, host, port) {
+    //     return true;
+    //   };
+    // };
+
     try {
       switch (request.httpMethod()) {
         case HttpMethod.GET:
@@ -32,9 +45,11 @@ class DioAdapter extends HiNETAdapter {
     } on DioError catch (e) {
       response = e.response;
       error = e;
+    } catch (e) {
+      error = e;
     }
 
-    if (error! == null) {
+    if (error != null) {
       throw HiNETError(response?.statusCode ?? -1, error.toString(),
           data: _buildResponse(response, request));
     }

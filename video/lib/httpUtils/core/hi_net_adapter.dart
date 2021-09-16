@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:video/http/request/base_request.dart';
+import 'package:video/httpUtils/request/base_request.dart';
 
 class HiNETResponse<T> {
   T? data;

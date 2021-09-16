@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:video/httpUtils/dao/login_dao.dart';
 
 enum HttpMethod { GET, POST, DELETE, PUT }
 
@@ -7,11 +7,11 @@ abstract class BaseRequest {
   var pathParams;
 
   /// 是否使用https
-  var useHttps = true;
+  var useHttps = false;
 
   /// 域名
   String authority() {
-    return "api.devio.org";
+    return "rap2api.taobao.org";
   }
 
   /// 请求类型
@@ -34,9 +34,14 @@ abstract class BaseRequest {
     }
 
     if (useHttps) {
-      uri = Uri.https(authority(), pathStr, params);
+      uri = Uri.https(authority(), pathStr);
     } else {
-      uri = Uri.http(authority(), pathStr, params);
+      uri = Uri.http(authority(), pathStr);
+    }
+
+    /// 为需要登录的接口设置token
+    if (needLogin()) {
+      addHeader(LoginDao.ACCESS_TOKEN, LoginDao.getAccessToken());
     }
 
     return uri.toString();
