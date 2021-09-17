@@ -8,7 +8,10 @@ import 'package:video/wiget/login_effect.dart';
 import 'package:video/wiget/login_input.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({Key? key}) : super(key: key);
+  final VoidCallback? onJumpToRegister;
+  final VoidCallback? onLoginSuccess;
+  LoginPage({Key? key, this.onJumpToRegister, this.onLoginSuccess})
+      : super(key: key);
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -27,7 +30,9 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appbar("密码登录", "注册", () {
-        print("right button click");
+        if (widget.onJumpToRegister != null) {
+          widget.onJumpToRegister!();
+        }
       }),
       body: Container(
         child: ListView(
@@ -98,6 +103,9 @@ class _LoginPageState extends State<LoginPage> {
       var result = await LoginDao.login(this.username!, this.pwd!);
       if (result['code'] == 0) {
         showToast("登录成功");
+        if (widget.onLoginSuccess != null) {
+          widget.onLoginSuccess!();
+        }
       } else {
         showWarnToast(result['msg']);
       }

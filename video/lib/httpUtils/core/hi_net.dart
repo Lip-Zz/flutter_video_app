@@ -1,7 +1,6 @@
 import 'package:video/httpUtils/core/dio_adapter.dart';
 import 'package:video/httpUtils/core/hi_error.dart';
 import 'package:video/httpUtils/core/hi_net_adapter.dart';
-import 'package:video/httpUtils/core/mock_adapter.dart';
 import 'package:video/httpUtils/request/base_request.dart';
 
 class HiNET {

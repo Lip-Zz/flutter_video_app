@@ -5,7 +5,7 @@ import 'package:video/httpUtils/request/login_request.dart';
 import 'package:video/httpUtils/request/register_request.dart';
 
 class LoginDao {
-  static String ACCESS_TOKEN = "accessToken";
+  static String accessTOKEN = "accessToken";
   static login(String username, String password) async {
     return _send(username, password);
   }
@@ -31,12 +31,12 @@ class LoginDao {
 
     //登录成功，保存登录token
     if (result['code'] == 0 && result['data'] != null) {
-      HiCache.getInstance().setString(ACCESS_TOKEN, result['data']);
+      HiCache.getInstance().setString(accessTOKEN, result['data']);
     }
     return result;
   }
 
   static String getAccessToken() {
-    return HiCache.getInstance().get<String>(ACCESS_TOKEN) ?? "";
+    return HiCache.getInstance().get<String>(accessTOKEN) ?? "";
   }
 }

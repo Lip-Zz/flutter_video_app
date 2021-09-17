@@ -9,7 +9,7 @@ import 'package:video/wiget/login_effect.dart';
 import 'package:video/wiget/login_input.dart';
 
 class RegisterPage extends StatefulWidget {
-  VoidCallback? onJumpToLogin;
+  final VoidCallback? onJumpToLogin;
 
   RegisterPage({Key? key, this.onJumpToLogin}) : super(key: key);
 

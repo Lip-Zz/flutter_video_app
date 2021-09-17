@@ -41,7 +41,7 @@ abstract class BaseRequest {
 
     /// 为需要登录的接口设置token
     if (needLogin()) {
-      addHeader(LoginDao.ACCESS_TOKEN, LoginDao.getAccessToken());
+      addHeader(LoginDao.accessTOKEN, LoginDao.getAccessToken());
     }
 
     return uri.toString();
