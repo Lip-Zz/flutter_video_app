@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:video/httpUtils/dao/login_dao.dart';
+import 'package:video/navigator/hi_navigator.dart';
 import 'package:video/util/string_util.dart';
 import 'package:video/util/toast.dart';
 import 'package:video/wiget/appbar.dart';
@@ -9,9 +10,7 @@ import 'package:video/wiget/login_effect.dart';
 import 'package:video/wiget/login_input.dart';
 
 class RegisterPage extends StatefulWidget {
-  final VoidCallback? onJumpToLogin;
-
-  RegisterPage({Key? key, this.onJumpToLogin}) : super(key: key);
+  RegisterPage({Key? key}) : super(key: key);
 
   @override
   _RegisterPageState createState() => _RegisterPageState();
@@ -33,7 +32,7 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: appbar("注册", "登录", () {
-          print("right button click");
+          HiNavigator.getInstance().onJumpTo(RouteStatus.login);
         }),
         body: Container(
           child: ListView(
@@ -130,9 +129,7 @@ class _RegisterPageState extends State<RegisterPage> {
       var result = await LoginDao.register(this.username!, this.pwd!, this.id!);
       if (result['code'] == 0) {
         showToast("注册成功");
-        if (widget.onJumpToLogin != null) {
-          widget.onJumpToLogin!();
-        }
+        HiNavigator.getInstance().onJumpTo(RouteStatus.login);
       } else {
         showWarnToast(result['msg']);
       }

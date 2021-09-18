@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:video/db/hi_cache.dart';
 import 'package:video/httpUtils/dao/login_dao.dart';
 import 'package:video/model/video.dart';
+import 'package:video/navigator/bottom_navigator.dart';
 import 'package:video/navigator/hi_navigator.dart';
 import 'package:video/page/home_page.dart';
 import 'package:video/page/login_page.dart';
@@ -69,7 +70,16 @@ class BRouteDelegate extends RouterDelegate<BRoutePath>
     with ChangeNotifier, PopNavigatorRouterDelegateMixin {
   final GlobalKey<NavigatorState> navigationKey;
   // 为navigator设置一个key，必要的时候可以通过navigationKey.currentState来获取NavigatorState对象，pop,canPop,push等
-  BRouteDelegate() : navigationKey = GlobalKey<NavigatorState>();
+  BRouteDelegate() : navigationKey = GlobalKey<NavigatorState>() {
+    HiNavigator.getInstance().registerRouteJump(
+        RouteJumpListener(onJumpTo: (RouteStatus routeStatus, {Map? args}) {
+      _routeStatus = routeStatus;
+      if (routeStatus == RouteStatus.detail) {
+        this.video = args?["video"];
+      }
+      this.notifyListeners();
+    }));
+  }
 
   RouteStatus _routeStatus = RouteStatus.home;
   //路由拦截
@@ -77,7 +87,7 @@ class BRouteDelegate extends RouterDelegate<BRoutePath>
     if (_routeStatus != RouteStatus.register && !hasLogin) {
       return _routeStatus = RouteStatus.login;
     } else if (video != null) {
-      return RouteStatus.detail;
+      return _routeStatus = RouteStatus.detail;
     }
 
     return _routeStatus;
@@ -91,7 +101,7 @@ class BRouteDelegate extends RouterDelegate<BRoutePath>
   @override
   Widget build(BuildContext context) {
     //管理路由堆栈
-    var index = getPageIndex(pages, _routeStatus);
+    var index = getPageIndex(pages, routeStatus);
     List<MaterialPage> tempPages = pages;
     if (index != -1) {
       //要打开的页面在栈中已存在，则将该页面和它上面的所有页面出栈，
@@ -103,23 +113,13 @@ class BRouteDelegate extends RouterDelegate<BRoutePath>
     switch (routeStatus) {
       case RouteStatus.home: //跳转到首页是将堆栈中的其他页面全部出栈，因为首页不可回退
         pages.clear();
-        page = pageWrap(HomePage(
-          onJumpDetail: (video) {
-            this.video = video;
-            this.notifyListeners();
-          },
-        ));
+        page = pageWrap(BottomNavigator());
         break;
       case RouteStatus.detail:
         page = pageWrap(VideoDetailPage(video!));
         break;
       case RouteStatus.register:
-        page = pageWrap(RegisterPage(
-          onJumpToLogin: () {
-            _routeStatus = RouteStatus.login;
-            this.notifyListeners();
-          },
-        ));
+        page = pageWrap(RegisterPage());
         break;
       case RouteStatus.login:
         page = pageWrap(LoginPage(
@@ -138,6 +138,9 @@ class BRouteDelegate extends RouterDelegate<BRoutePath>
     }
 
     tempPages = [...tempPages, page];
+
+    //通知路由变化
+    HiNavigator.getInstance().notify(tempPages, pages);
 
     //路由堆栈
     pages = tempPages;
@@ -163,7 +166,13 @@ class BRouteDelegate extends RouterDelegate<BRoutePath>
           if (!route.didPop(result)) {
             return false;
           }
+
+          var tempPages = [...pages];
+
           pages.removeLast();
+          //通知路由变化
+          HiNavigator.getInstance().notify(pages, tempPages);
+
           return true;
         },
       ),

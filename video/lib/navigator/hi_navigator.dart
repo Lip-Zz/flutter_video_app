@@ -4,6 +4,8 @@ import 'package:video/page/login_page.dart';
 import 'package:video/page/register_page.dart';
 import 'package:video/page/video_detail_page.dart';
 
+typedef RouteChangeListener(RouteStatusInfo current, RouteStatusInfo? pre);
+
 /// 创建页面
 pageWrap(Widget child) {
   return MaterialPage(child: child, key: ValueKey(child.hashCode));
@@ -44,6 +46,83 @@ int getPageIndex(List<MaterialPage> pages, RouteStatus routeStatus) {
     }
   }
   return -1;
+}
+
+/// 监听路由跳转，监听当前页面是否压后台
+class HiNavigator extends _RouteJumpListener {
+  static HiNavigator? _instance;
+  HiNavigator._();
+  static HiNavigator getInstance() {
+    if (_instance == null) {
+      _instance = HiNavigator._();
+    }
+    return _instance!;
+  }
+
+  /// 跳转监听
+  RouteJumpListener? _routeJump;
+
+  /// 路由变化监听
+  List<RouteChangeListener> _listeners = [];
+
+  /// 打开过的页面
+  RouteStatusInfo? _current;
+
+  void addListener(RouteChangeListener listener) {
+    if (!_listeners.contains(listener)) {
+      this._listeners.add(listener);
+    }
+  }
+
+  void removeListener(RouteChangeListener listener) {
+    this._listeners.remove(listener);
+  }
+
+  /// 通知路由页面路由变化
+  void notify(List<MaterialPage> currentPage, List<MaterialPage> prePages) {
+    if (currentPage == prePages) return;
+
+    var current =
+        RouteStatusInfo(getStatus(currentPage.last), currentPage.last.child);
+
+    _notify(current);
+  }
+
+  void _notify(RouteStatusInfo current) {
+    printLog("当前页面:${current.page}");
+    printLog("打开过的页面:${_current?.page}");
+    _listeners.forEach((element) {
+      element(current, _current);
+    });
+    _current = current;
+  }
+
+  void registerRouteJump(RouteJumpListener routeJumpListener) {
+    this._routeJump = routeJumpListener;
+  }
+
+  @override
+  void onJumpTo(RouteStatus routeStatus, {Map? args}) {
+    if (_routeJump?.onJumpTo != null) {
+      _routeJump!.onJumpTo!(routeStatus, args: args);
+    }
+  }
+}
+
+/// 抽象类供HiNavigator实现
+abstract class _RouteJumpListener {
+  void onJumpTo(RouteStatus routeStatus, {Map? args});
+}
+
+typedef OnJumpTo = void Function(RouteStatus routeStatus, {Map? args});
+
+class RouteJumpListener {
+  OnJumpTo? onJumpTo;
+  RouteJumpListener({this.onJumpTo});
+}
+
+printLog(String text) {
+  print("HiNavigator-$text");
 }
 
 

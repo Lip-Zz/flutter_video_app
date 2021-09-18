@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:video/httpUtils/dao/login_dao.dart';
+import 'package:video/navigator/hi_navigator.dart';
 import 'package:video/util/string_util.dart';
 import 'package:video/util/toast.dart';
 import 'package:video/wiget/appbar.dart';
@@ -30,9 +31,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appbar("密码登录", "注册", () {
-        if (widget.onJumpToRegister != null) {
-          widget.onJumpToRegister!();
-        }
+        HiNavigator.getInstance().onJumpTo(RouteStatus.register);
       }),
       body: Container(
         child: ListView(
@@ -103,9 +102,7 @@ class _LoginPageState extends State<LoginPage> {
       var result = await LoginDao.login(this.username!, this.pwd!);
       if (result['code'] == 0) {
         showToast("登录成功");
-        if (widget.onLoginSuccess != null) {
-          widget.onLoginSuccess!();
-        }
+        HiNavigator.getInstance().onJumpTo(RouteStatus.home);
       } else {
         showWarnToast(result['msg']);
       }
