@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:video/navigator/hi_navigator.dart';
 import 'package:video/page/favorite_page.dart';
 import 'package:video/page/home_page.dart';
 import 'package:video/page/my_page.dart';
@@ -16,20 +17,24 @@ class _BottomNavigatorState extends State<BottomNavigator> {
   final _defaultColor = Colors.grey;
   final _activeColor = primary;
   int _currentIndex = 0;
-  final PageController _controller = PageController(initialPage: 0);
+  final PageController _controller = PageController(initialPage: initialPage);
+
+  static int initialPage = 0;
+  List<Widget> _pages = [HomePage(), RankPage(), FavoriatePage(), MyPage()];
+  bool _hasBuild = false;
 
   @override
   Widget build(BuildContext context) {
+    if (!_hasBuild) {
+      HiNavigator.getInstance()
+          .onBottomTabChange(initialPage, _pages[initialPage]);
+      _hasBuild = true;
+    }
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           currentIndex: _currentIndex,
-          onTap: (index) {
-            _controller.jumpToPage(index);
-            this.setState(() {
-              _currentIndex = index;
-            });
-          },
+          onTap: (index) => _onJumpTo(index, pageChange: false),
           selectedItemColor: _activeColor,
           unselectedItemColor: _defaultColor,
           items: [
@@ -40,13 +45,9 @@ class _BottomNavigatorState extends State<BottomNavigator> {
           ]),
       body: PageView(
         physics: NeverScrollableScrollPhysics(), //禁止滚动
-        onPageChanged: (index) {
-          this.setState(() {
-            _currentIndex = index;
-          });
-        },
+        onPageChanged: (index) => _onJumpTo(index, pageChange: true),
         controller: _controller,
-        children: [HomePage(), RankPage(), FavoriatePage(), MyPage()],
+        children: _pages,
       ),
     );
   }
@@ -63,5 +64,17 @@ class _BottomNavigatorState extends State<BottomNavigator> {
       ),
       label: s,
     );
+  }
+
+  void _onJumpTo(int index, {pageChange = false}) {
+    if (!pageChange) {
+      _controller.jumpToPage(index);
+    } else {
+      HiNavigator.getInstance().onBottomTabChange(index, _pages[index]);
+    }
+
+    this.setState(() {
+      _currentIndex = index;
+    });
   }
 }
