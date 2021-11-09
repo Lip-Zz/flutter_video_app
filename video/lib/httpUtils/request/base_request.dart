@@ -54,7 +54,7 @@ abstract class BaseRequest {
   Map<String, String> params = Map();
 
   /// 添加参数
-  BaseRequest add(String k, String v) {
+  BaseRequest add(String k, dynamic v) {
     params[k] = v.toString();
     return this;
   }
