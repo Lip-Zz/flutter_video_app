@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:video/core/hi_state.dart';
 import 'package:video/httpUtils/core/hi_error.dart';
 import 'package:video/httpUtils/dao/home_dao.dart';
 import 'package:video/model/bannerModel.dart';
@@ -17,7 +18,7 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>
+class _HomePageState extends HiState<HomePage>
     with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
   RouteChangeListener? listener;
   List<CategoryModel> categoryList = [];
@@ -63,7 +64,8 @@ class _HomePageState extends State<HomePage>
                   children: categoryList.map<HomeTabPage>((tab) {
                     return HomeTabPage(
                       name: tab.name,
-                      bannerList: tab.name == "推荐" ? bannerList : null,
+                      bannerList:
+                          categoryList.indexOf(tab) == 0 ? bannerList : null,
                     );
                   }).toList())),
         ],

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:video/db/hi_cache.dart';
 import 'package:video/httpUtils/dao/login_dao.dart';
 import 'package:video/model/video.dart';
+import 'package:video/model/videoModel.dart';
 import 'package:video/navigator/bottom_navigator.dart';
 import 'package:video/navigator/hi_navigator.dart';
 import 'package:video/page/home_page.dart';
@@ -94,7 +95,7 @@ class BRouteDelegate extends RouterDelegate<BRoutePath>
   }
 
   List<MaterialPage> pages = [];
-  Video? video;
+  VideoModel? video;
 
   bool get hasLogin => isNotEmpty(LoginDao.getAccessToken());
 

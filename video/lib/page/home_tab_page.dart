@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:video/core/hi_state.dart';
 import 'package:video/model/bannerModel.dart';
+import 'package:video/wiget/hi_banner.dart';
 
 class HomeTabPage extends StatefulWidget {
   final String? name;
@@ -10,11 +12,26 @@ class HomeTabPage extends StatefulWidget {
   _HomeTabPageState createState() => _HomeTabPageState();
 }
 
-class _HomeTabPageState extends State<HomeTabPage> {
+class _HomeTabPageState extends HiState<HomeTabPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text("${widget.name},${widget.bannerList}"),
+      child: ListView(
+        children: [
+          if (widget.bannerList != null) _banner(),
+          Text("${widget.name},${widget.bannerList}")
+        ],
+      ),
+    );
+  }
+
+  _banner() {
+    return Padding(
+      padding: EdgeInsets.only(left: 8, right: 8),
+      child: HiBanner(
+        bannerList: widget.bannerList ?? [],
+        bannerHeight: 200,
+      ),
     );
   }
 }
