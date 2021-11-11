@@ -13,7 +13,7 @@ class HiBanner extends StatelessWidget {
       {Key? key,
       this.bannerList: const [],
       this.bannerHeight: 0,
-      this.padding: const EdgeInsets.only(left: 4, right: 4)})
+      this.padding: const EdgeInsets.only(left: 0, right: 0)})
       : super(key: key);
 
   @override
@@ -33,7 +33,7 @@ class HiBanner extends StatelessWidget {
       },
       pagination: SwiperPagination(
         alignment: Alignment.bottomCenter,
-        margin: EdgeInsets.only(bottom: 8),
+        margin: EdgeInsets.only(bottom: 5),
         builder: DotSwiperPaginationBuilder(
             color: Colors.white60, size: 6, activeSize: 7),
       ),

@@ -5,14 +5,15 @@ import 'package:video/httpUtils/dao/home_dao.dart';
 import 'package:video/model/bannerModel.dart';
 import 'package:video/model/categoryModel.dart';
 import 'package:video/model/homeModel.dart';
-import 'package:video/model/video.dart';
 import 'package:video/navigator/hi_navigator.dart';
 import 'package:video/page/home_tab_page.dart';
 import 'package:video/util/color.dart';
 import 'package:video/util/toast.dart';
+import 'package:video/wiget/navigation_bar.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
+  final ValueChanged<int>? onJmupTo;
+  HomePage({Key? key, this.onJmupTo}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -53,6 +54,12 @@ class _HomePageState extends HiState<HomePage>
       // appBar: AppBar(),
       body: Column(
         children: [
+          NavigationBar(
+            height: 60,
+            child: _appbar(),
+            color: Colors.white,
+            statusStyle: StatusStyle.Dark,
+          ),
           Container(
             color: Colors.white,
             padding: EdgeInsets.only(top: 20),
@@ -113,5 +120,70 @@ class _HomePageState extends HiState<HomePage>
     } on HiNETError catch (e) {
       showWarnToast(e.message);
     }
+  }
+
+  _appbar() {
+    return Container(
+      decoration: BoxDecoration(color: Colors.white),
+      child: Padding(
+        padding: EdgeInsets.only(left: 15, right: 15),
+        child: Row(
+          children: [_avatar(), _searchInput(), ..._buttonItems()],
+        ),
+      ),
+    );
+  }
+
+  _avatar() {
+    return GestureDetector(
+      onTap: () {
+        if (widget.onJmupTo != null) {
+          widget.onJmupTo!(3);
+        }
+      },
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(23),
+        child: Image.asset(
+          "images/avatar.png",
+          height: 46,
+          width: 46,
+        ),
+      ),
+    );
+  }
+
+  _searchInput() {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.only(left: 15, right: 15),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(16),
+          child: Container(
+            padding: EdgeInsets.only(left: 10),
+            height: 32,
+            decoration: BoxDecoration(color: Colors.grey[100]),
+            alignment: Alignment.centerLeft,
+            child: Icon(
+              Icons.search,
+              color: Colors.grey,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  _buttonItems() {
+    return [
+      Icon(
+        Icons.access_alarm,
+        color: Colors.grey,
+      ),
+      Padding(padding: EdgeInsets.only(left: 10)),
+      Icon(
+        Icons.mail,
+        color: Colors.grey,
+      ),
+    ];
   }
 }
