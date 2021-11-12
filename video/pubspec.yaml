@@ -42,6 +42,7 @@ dependencies:
     git:
       url: https://github.com/zliide/flutter_staggered_grid_view.git
   transparent_image: ^2.0.0
+  cached_network_image: ^3.1.0+1
 
 dev_dependencies:
   flutter_test:

@@ -1,11 +1,9 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:transparent_image/transparent_image.dart';
 import 'package:video/model/ownerModel.dart';
 import 'package:video/model/videoModel.dart';
 import 'package:video/navigator/hi_navigator.dart';
 import 'package:video/util/format_util.dart';
+import 'package:video/util/view_util.dart';
 
 class VideoCard extends StatelessWidget {
   final VideoModel? videoModel;
@@ -40,12 +38,14 @@ class VideoCard extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Stack(
       children: [
-        FadeInImage.memoryNetwork(
-            height: 120,
-            width: size.width / 2 - 20,
-            fit: BoxFit.cover,
-            placeholder: kTransparentImage,
-            image: videoModel?.cover ?? ""),
+        // FadeInImage.memoryNetwork(
+        //     height: 120,
+        //     width: size.width / 2 - 20,
+        //     fit: BoxFit.cover,
+        //     placeholder: kTransparentImage,
+        //     image: videoModel?.cover ?? ""),
+        cacheNetworkImage(videoModel?.cover ?? "",
+            width: size.width / 2 - 20, height: 120),
         Positioned(
             left: 0,
             right: 0,
@@ -120,12 +120,7 @@ class VideoCard extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(12),
-              child: Image.network(
-                o.face,
-                width: 24,
-                height: 24,
-                fit: BoxFit.cover,
-              ),
+              child: cacheNetworkImage(o.face, width: 24, height: 24),
             ),
             Padding(
               padding: EdgeInsets.only(left: 8),

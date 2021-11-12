@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:video/db/hi_cache.dart';
 import 'package:video/httpUtils/dao/login_dao.dart';
-import 'package:video/model/video.dart';
 import 'package:video/model/videoModel.dart';
 import 'package:video/navigator/bottom_navigator.dart';
 import 'package:video/navigator/hi_navigator.dart';
-import 'package:video/page/home_page.dart';
 import 'package:video/page/login_page.dart';
 import 'package:video/page/register_page.dart';
 import 'package:video/page/video_detail_page.dart';

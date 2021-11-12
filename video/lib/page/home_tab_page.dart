@@ -12,14 +12,15 @@ import 'package:video/wiget/video_card.dart';
 
 class HomeTabPage extends StatefulWidget {
   final String? name;
-  List<BannerModel>? bannerList;
+  final List<BannerModel>? bannerList;
   HomeTabPage({Key? key, this.name, this.bannerList}) : super(key: key);
 
   @override
   _HomeTabPageState createState() => _HomeTabPageState();
 }
 
-class _HomeTabPageState extends HiState<HomeTabPage> {
+class _HomeTabPageState extends HiState<HomeTabPage>
+    with AutomaticKeepAliveClientMixin {
   List<VideoModel> videoList = [];
   int pageIndex = 1;
 
@@ -31,6 +32,7 @@ class _HomeTabPageState extends HiState<HomeTabPage> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return MediaQuery.removePadding(
       context: context,
       removeTop: true,
@@ -95,4 +97,7 @@ class _HomeTabPageState extends HiState<HomeTabPage> {
       showWarnToast(e.message);
     }
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

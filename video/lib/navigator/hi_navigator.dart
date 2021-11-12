@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:video/navigator/bottom_navigator.dart';
-import 'package:video/page/home_page.dart';
 import 'package:video/page/login_page.dart';
 import 'package:video/page/register_page.dart';
 import 'package:video/page/video_detail_page.dart';
