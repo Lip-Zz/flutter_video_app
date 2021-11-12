@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:video/model/videoModel.dart';
+import 'package:video/wiget/video_view.dart';
 
 class VideoDetailPage extends StatefulWidget {
   final VideoModel video;
@@ -17,9 +18,23 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Container(
-        child: Text("视频详情页,vid:${widget.video.url}"),
+      body: Column(
+        children: [
+          Container(
+            child: Text("视频详情页,url:${widget.video.url}"),
+          ),
+          _video()
+        ],
       ),
+    );
+  }
+
+  _video() {
+    return VideoView(
+      widget.video.url,
+      cover: widget.video.cover,
+      autoPlay: true,
+      looping: true,
     );
   }
 }
