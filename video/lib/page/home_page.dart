@@ -7,8 +7,12 @@ import 'package:video/model/categoryModel.dart';
 import 'package:video/model/homeModel.dart';
 import 'package:video/navigator/hi_navigator.dart';
 import 'package:video/page/home_tab_page.dart';
+import 'package:video/page/my_page.dart';
+import 'package:video/page/video_detail_page.dart';
 import 'package:video/util/color.dart';
 import 'package:video/util/toast.dart';
+import 'package:video/util/view_util.dart';
+import 'package:video/wiget/hi_tab.dart';
 import 'package:video/wiget/navigation_bar.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,31 +24,65 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends HiState<HomePage>
-    with AutomaticKeepAliveClientMixin, TickerProviderStateMixin {
+    with
+        AutomaticKeepAliveClientMixin,
+        TickerProviderStateMixin,
+        WidgetsBindingObserver {
   RouteChangeListener? listener;
   List<CategoryModel> categoryList = [];
   List<BannerModel> bannerList = [];
   late TabController _controller;
+  Widget? _currentPage;
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance?.addObserver(this);
     _controller = TabController(length: categoryList.length, vsync: this);
     //如果不加AutomaticKeepAliveClientMixin，页面会重新创建
-    HiNavigator.getInstance().addListener(this.listener = (current, pre) => {
-          if (widget == current.page || current.page is HomePage)
-            {printLog("打开了首页:onResume")}
-          else if (widget == pre?.page || pre?.page is HomePage)
-            {printLog("首页:onPause")}
-        });
+    HiNavigator.getInstance().addListener(
+      this.listener = (current, pre) => {
+            if (widget == current.page || current.page is HomePage)
+              {printLog("打开了首页:onResume")}
+            else if (widget == pre?.page || pre?.page is HomePage)
+              {printLog("首页:onPause")},
+            //当前页面返回到首页时，恢复首页的状态栏样式
+            if (pre?.page is VideoDetailPage && !(current.page is MyPage))
+              {
+                changeStatusBar(
+                    color: Colors.white, statusStyle: StatusStyle.Dark)
+              }
+          },
+    );
     loadData();
   }
 
   @override
   void dispose() {
+    WidgetsBinding.instance?.removeObserver(this);
     HiNavigator.getInstance().removeListener(this.listener);
     _controller.dispose();
     super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    print("AppLifecycleState:${state}");
+    switch (state) {
+      case AppLifecycleState.resumed: //后台切换到前台
+        //修复安卓后台切换到前台，状态栏变白色的问题
+        if (!(_currentPage is VideoDetailPage)) {
+          changeStatusBar(color: Colors.white, statusStyle: StatusStyle.Dark);
+        }
+        break;
+      case AppLifecycleState.inactive: //处于这种状态的应用应该假设他们可能在任何时候会暂停
+        break;
+      case AppLifecycleState.paused: //界面不可见，后台
+        break;
+      case AppLifecycleState.detached: //关闭
+        break;
+    }
   }
 
   @override
@@ -83,21 +121,17 @@ class _HomePageState extends HiState<HomePage>
   bool get wantKeepAlive => true;
 
   _tabBar() {
-    return TabBar(
-      controller: _controller,
-      isScrollable: true,
-      labelColor: Colors.black,
-      indicator: UnderlineTabIndicator(
-        borderSide: BorderSide(width: 2.0, color: primary),
-        insets: EdgeInsets.only(left: 10, right: 10),
-      ),
-      tabs: categoryList.map<Tab>((tab) {
+    return HiTab(
+      categoryList.map((e) {
         return Tab(
-            child: Padding(
-          padding: EdgeInsets.only(left: 5, right: 5),
-          child: Text(tab.name),
-        ));
+          text: e.name,
+        );
       }).toList(),
+      controller: _controller,
+      fontSize: 16,
+      borderWidth: 3,
+      unselectedLabelColor: Colors.black,
+      insets: 13,
     );
   }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:video/util/view_util.dart';
 
 appbar(String title, String rightTitle, VoidCallback rightButtonClick) {
   return AppBar(
@@ -23,5 +24,40 @@ appbar(String title, String rightTitle, VoidCallback rightButtonClick) {
         ),
       )
     ],
+  );
+}
+
+videoAppbar({VoidCallback? onBack}) {
+  return Container(
+    padding: EdgeInsets.only(right: 8),
+    decoration: BoxDecoration(gradient: blackLinearGradient(fromTop: true)),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        BackButton(
+          color: Colors.white,
+          onPressed: () {
+            print(11111);
+          },
+        ),
+        Row(
+          children: [
+            Icon(
+              Icons.tv,
+              color: Colors.white,
+              size: 20,
+            ),
+            Padding(
+              padding: EdgeInsets.only(left: 12),
+              child: Icon(
+                Icons.more_horiz_rounded,
+                color: Colors.white,
+                size: 20,
+              ),
+            )
+          ],
+        )
+      ],
+    ),
   );
 }

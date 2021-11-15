@@ -39,6 +39,7 @@ class _HomeTabPageState extends HiState<HomeTabPage>
       child: StaggeredGridView.countBuilder(
           crossAxisCount: 2,
           itemCount: videoList.length,
+          crossAxisSpacing: 10,
           padding: EdgeInsets.only(top: 10, left: 10, right: 10),
           itemBuilder: (context, index) {
             if (index == 0 && widget.bannerList != null) {

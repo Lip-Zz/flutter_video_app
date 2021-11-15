@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_statusbar_manager/flutter_statusbar_manager.dart';
+import 'package:video/wiget/navigation_bar.dart';
 
 /// 图片本地缓存
 Widget cacheNetworkImage(String url, {double? height, double? width}) {
@@ -40,4 +42,13 @@ LinearGradient blackLinearGradient({bool fromTop = false}) {
         Colors.black12,
         Colors.transparent,
       ]);
+}
+
+/// 改变状态栏颜色
+void changeStatusBar(
+    {color: Colors.white, StatusStyle statusStyle: StatusStyle.Light}) {
+  FlutterStatusbarManager.setColor(color, animated: false);
+  FlutterStatusbarManager.setStyle(statusStyle == StatusStyle.Dark
+      ? StatusBarStyle.DARK_CONTENT
+      : StatusBarStyle.LIGHT_CONTENT);
 }
