@@ -6,7 +6,8 @@ part 'ownerModel.g.dart';
 class OwnerModel {
   String face;
   String name;
-  OwnerModel({this.face: "", this.name: ""});
+  int fans;
+  OwnerModel({this.face: "", this.name: "", this.fans: 0});
   factory OwnerModel.fromJson(Map<String, dynamic> json) =>
       _$OwnerModelFromJson(json);
   Map<String, dynamic> toJson() => _$OwnerModelToJson(this);

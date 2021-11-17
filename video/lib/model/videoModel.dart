@@ -12,6 +12,10 @@ class VideoModel {
   int view;
   int seconds;
   OwnerModel? owner;
+  String title;
+  String createTime;
+  int reply;
+  String desc;
   VideoModel({
     this.name = '',
     this.id: '',
@@ -19,6 +23,10 @@ class VideoModel {
     this.cover: '',
     this.view: 0,
     this.seconds: 0,
+    this.title: '',
+    this.createTime: '',
+    this.desc: '',
+    this.reply: 0,
   });
   factory VideoModel.fromJson(Map<String, dynamic> json) =>
       _$VideoModelFromJson(json);

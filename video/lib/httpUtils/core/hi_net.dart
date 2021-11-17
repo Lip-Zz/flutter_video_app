@@ -20,7 +20,7 @@ class HiNET {
   //   return _instance!;
   // }
 
-  Future<HiNETResponse<T>> send<T>(BaseRequest request) async {
+  Future<HiNETResponse<T>> _send<T>(BaseRequest request) async {
     printLog("请求地址(url):${request.url()}");
     printLog("请求类型(method):${request.httpMethod()}");
     printLog("请求头(header):${request.header}");
@@ -38,7 +38,7 @@ class HiNET {
     var error;
 
     try {
-      response = await send(request);
+      response = await _send(request);
     } on HiNETError catch (e) {
       error = e;
       response = e.data;

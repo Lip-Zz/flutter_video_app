@@ -9,7 +9,6 @@ import 'package:video/navigator/hi_navigator.dart';
 import 'package:video/page/home_tab_page.dart';
 import 'package:video/page/my_page.dart';
 import 'package:video/page/video_detail_page.dart';
-import 'package:video/util/color.dart';
 import 'package:video/util/toast.dart';
 import 'package:video/util/view_util.dart';
 import 'package:video/wiget/hi_tab.dart';

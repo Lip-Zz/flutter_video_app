@@ -13,6 +13,10 @@ VideoModel _$VideoModelFromJson(Map<String, dynamic> json) => VideoModel(
       cover: json['cover'] as String? ?? '',
       view: json['view'] as int? ?? 0,
       seconds: json['seconds'] as int? ?? 0,
+      title: json['title'] as String? ?? '',
+      createTime: json['createTime'] as String? ?? '',
+      desc: json['desc'] as String? ?? '',
+      reply: json['reply'] as int? ?? 0,
     )..owner = json['owner'] == null
         ? null
         : OwnerModel.fromJson(json['owner'] as Map<String, dynamic>);
@@ -26,4 +30,8 @@ Map<String, dynamic> _$VideoModelToJson(VideoModel instance) =>
       'view': instance.view,
       'seconds': instance.seconds,
       'owner': instance.owner,
+      'title': instance.title,
+      'createTime': instance.createTime,
+      'reply': instance.reply,
+      'desc': instance.desc,
     };

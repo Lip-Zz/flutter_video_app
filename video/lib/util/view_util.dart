@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_statusbar_manager/flutter_statusbar_manager.dart';
+import 'package:video/util/color.dart';
+import 'package:video/util/format_util.dart';
 import 'package:video/wiget/navigation_bar.dart';
 
 /// 图片本地缓存
@@ -51,4 +53,38 @@ void changeStatusBar(
   FlutterStatusbarManager.setStyle(statusStyle == StatusStyle.Dark
       ? StatusBarStyle.DARK_CONTENT
       : StatusBarStyle.LIGHT_CONTENT);
+}
+
+smallIconText(IconData iconData, var text) {
+  var style = TextStyle(fontSize: 12, color: Colors.grey);
+  if (text is int) {
+    text = countFormat(text);
+  }
+  return [
+    Icon(
+      iconData,
+      color: Colors.grey,
+      size: 12,
+    ),
+    hiSpace(width: 3),
+    Text(
+      '$text',
+      style: style,
+    )
+  ];
+}
+
+borderLine(BuildContext context, {bottom: true, top: false}) {
+  BorderSide borderSide =
+      BorderSide(width: 0.5, color: Colors.grey[200] ?? primary);
+  return Border(
+      bottom: bottom ? borderSide : BorderSide.none,
+      top: top ? borderSide : BorderSide.none);
+}
+
+SizedBox hiSpace({double height: 1, double width: 1}) {
+  return SizedBox(
+    height: height,
+    width: width,
+  );
 }
