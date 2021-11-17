@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:video/core/hi_state.dart';
-import 'package:video/httpUtils/core/hi_error.dart';
+import 'package:video/core/hi_base_tab_state.dart';
 import 'package:video/httpUtils/dao/home_dao.dart';
 import 'package:video/model/bannerModel.dart';
 import 'package:video/model/homeModel.dart';
 import 'package:video/model/videoModel.dart';
-import 'package:video/util/toast.dart';
 import 'package:video/wiget/hi_banner.dart';
 import 'package:video/wiget/video_card.dart';
 
@@ -19,48 +17,13 @@ class HomeTabPage extends StatefulWidget {
   _HomeTabPageState createState() => _HomeTabPageState();
 }
 
-class _HomeTabPageState extends HiState<HomeTabPage>
-    with AutomaticKeepAliveClientMixin {
-  List<VideoModel> videoList = [];
-  int pageIndex = 1;
-
+class _HomeTabPageState
+    extends HiBaseTabState<HomeModel, VideoModel, HomeTabPage> {
   @override
   void initState() {
     super.initState();
-    _loadData();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    super.build(context);
-    return MediaQuery.removePadding(
-      context: context,
-      removeTop: true,
-      child: StaggeredGridView.countBuilder(
-          crossAxisCount: 2,
-          itemCount: videoList.length,
-          crossAxisSpacing: 10,
-          padding: EdgeInsets.only(top: 10, left: 10, right: 10),
-          itemBuilder: (context, index) {
-            if (index == 0 && widget.bannerList != null) {
-              return Padding(
-                padding: EdgeInsets.only(bottom: 8),
-                child: _banner(),
-              );
-            } else {
-              return VideoCard(
-                videoModel: videoList[index],
-              );
-            }
-          },
-          staggeredTileBuilder: (index) {
-            if (index == 0 && widget.bannerList != null) {
-              return StaggeredTile.fit(2);
-            } else {
-              return StaggeredTile.fit(1);
-            }
-          }),
-    );
+    print("${widget.name}");
+    print("${widget.bannerList}");
   }
 
   _banner() {
@@ -73,32 +36,42 @@ class _HomeTabPageState extends HiState<HomeTabPage>
     );
   }
 
-  _loadData({loadMore = false}) async {
-    if (!loadMore) {
-      pageIndex = 1;
-    }
-    var currentIndex = pageIndex + (loadMore ? 1 : 0);
-    try {
-      HomeModel result = await HomeDao.get(widget.name ?? "",
-          pageIndex: currentIndex, pageSize: 10);
-      setState(() {
-        if (loadMore) {
-          if (result.videoList?.isNotEmpty == true &&
-              result.videoList != null) {
-            videoList = [...videoList, ...result.videoList!];
-            pageIndex++;
-          }
+  @override
+  get contentChild => StaggeredGridView.countBuilder(
+      controller: scrollController,
+      crossAxisCount: 2,
+      itemCount: dataList.length,
+      crossAxisSpacing: 10,
+      padding: EdgeInsets.only(top: 10, left: 10, right: 10),
+      itemBuilder: (context, index) {
+        if (index == 0 && widget.bannerList != null) {
+          return Padding(
+            padding: EdgeInsets.only(bottom: 8),
+            child: _banner(),
+          );
         } else {
-          videoList = result.videoList ?? [];
+          return VideoCard(
+            videoModel: dataList[index],
+          );
+        }
+      },
+      staggeredTileBuilder: (index) {
+        if (index == 0 && widget.bannerList != null) {
+          return StaggeredTile.fit(2);
+        } else {
+          return StaggeredTile.fit(1);
         }
       });
-    } on NeedAuth catch (e) {
-      showWarnToast(e.message);
-    } on HiNETError catch (e) {
-      showWarnToast(e.message);
-    }
+
+  @override
+  Future<HomeModel> getData(int pageIndex) async {
+    HomeModel result = await HomeDao.get(widget.name ?? "",
+        pageIndex: pageIndex, pageSize: 10);
+    return result;
   }
 
   @override
-  bool get wantKeepAlive => true;
+  List<VideoModel> parseList(result) {
+    return result.videoList ?? [];
+  }
 }

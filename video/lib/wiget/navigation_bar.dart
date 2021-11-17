@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_statusbar_manager/flutter_statusbar_manager.dart';
 import 'package:video/util/view_util.dart';
 
 enum StatusStyle { Light, Dark }

@@ -67,7 +67,7 @@ class _HomePageState extends HiState<HomePage>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
-    print("AppLifecycleState:${state}");
+    print("AppLifecycleState:$state");
     switch (state) {
       case AppLifecycleState.resumed: //后台切换到前台
         //修复安卓后台切换到前台，状态栏变白色的问题
@@ -98,7 +98,7 @@ class _HomePageState extends HiState<HomePage>
             statusStyle: StatusStyle.Dark,
           ),
           Container(
-            color: Colors.white,
+            decoration: bottomBoxShadow(),
             child: _tabBar(),
           ),
           Flexible(
