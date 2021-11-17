@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:video/page/rank_tab_page.dart';
 import 'package:video/util/view_util.dart';
 import 'package:video/wiget/hi_tab.dart';
 import 'package:video/wiget/navigation_bar.dart';
@@ -66,8 +67,8 @@ class _RankPageState extends State<RankPage>
     return Flexible(
       child: TabBarView(
         children: tabs.map((e) {
-          return Container(
-            child: Text(e['name'] ?? ''),
+          return RankTabPage(
+            name: e['name'] ?? '',
           );
         }).toList(),
         controller: _controller,
