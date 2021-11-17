@@ -18,6 +18,8 @@ class _RankTabPageState
   @override
   get contentChild => Container(
         child: ListView.builder(
+            //防止只有一条数据的时候不能滑动加载
+            physics: AlwaysScrollableScrollPhysics(),
             controller: scrollController,
             padding: EdgeInsets.only(top: 10),
             itemCount: dataList.length,

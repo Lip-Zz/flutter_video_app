@@ -22,7 +22,10 @@ abstract class HiBaseTabState<M, L, T extends StatefulWidget> extends HiState<T>
       var dis = scrollController.position.maxScrollExtent -
           scrollController.position.pixels;
       print("滚动的距离:$dis");
-      if (dis < 300 && !loading) {
+      //当列表高度不满屏幕的时候，不加载更多数据
+      if (dis < 300 &&
+          !loading &&
+          scrollController.position.maxScrollExtent != 0) {
         print('加载更多数据');
         loadData(loadMore: true);
       }
