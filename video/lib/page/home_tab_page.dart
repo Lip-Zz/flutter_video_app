@@ -27,12 +27,10 @@ class _HomeTabPageState
   }
 
   _banner() {
-    return Padding(
-      padding: EdgeInsets.only(left: 0, right: 0),
-      child: HiBanner(
-        bannerList: widget.bannerList ?? [],
-        bannerHeight: 200,
-      ),
+    return HiBanner(
+      bannerList: widget.bannerList ?? [],
+      bannerHeight: 200,
+      padding: EdgeInsets.only(left: 5, right: 5),
     );
   }
 
@@ -41,8 +39,8 @@ class _HomeTabPageState
       controller: scrollController,
       crossAxisCount: 2,
       itemCount: dataList.length,
-      crossAxisSpacing: 10,
-      padding: EdgeInsets.only(top: 10, left: 10, right: 10),
+      // crossAxisSpacing: 10,
+      padding: EdgeInsets.only(top: 10, left: 5, right: 5),
       itemBuilder: (context, index) {
         if (index == 0 && widget.bannerList != null) {
           return Padding(

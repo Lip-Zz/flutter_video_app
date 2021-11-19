@@ -19,7 +19,7 @@ class VideoCard extends StatelessWidget {
       child: SizedBox(
         height: 200,
         child: Card(
-          margin: EdgeInsets.only(left: 0, right: 0, bottom: 8),
+          margin: EdgeInsets.only(left: 5, right: 5, bottom: 8),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(5),
             child: Column(
