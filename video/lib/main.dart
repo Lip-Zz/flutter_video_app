@@ -5,6 +5,7 @@ import 'package:video/model/videoModel.dart';
 import 'package:video/navigator/bottom_navigator.dart';
 import 'package:video/navigator/hi_navigator.dart';
 import 'package:video/page/login_page.dart';
+import 'package:video/page/notice_page.dart';
 import 'package:video/page/register_page.dart';
 import 'package:video/page/video_detail_page.dart';
 import 'package:video/util/color.dart';
@@ -71,13 +72,16 @@ class BRouteDelegate extends RouterDelegate<BRoutePath>
   // 为navigator设置一个key，必要的时候可以通过navigationKey.currentState来获取NavigatorState对象，pop,canPop,push等
   BRouteDelegate() : navigationKey = GlobalKey<NavigatorState>() {
     HiNavigator.getInstance().registerRouteJump(
-        RouteJumpListener(onJumpTo: (RouteStatus routeStatus, {Map? args}) {
-      _routeStatus = routeStatus;
-      if (routeStatus == RouteStatus.detail) {
-        this.video = args?["video"];
-      }
-      this.notifyListeners();
-    }));
+      RouteJumpListener(
+        onJumpTo: (RouteStatus r, {Map? args}) {
+          _routeStatus = r;
+          if (routeStatus == RouteStatus.detail) {
+            this.video = args?["video"];
+          }
+          this.notifyListeners();
+        },
+      ),
+    );
   }
 
   RouteStatus _routeStatus = RouteStatus.home;
@@ -85,10 +89,7 @@ class BRouteDelegate extends RouterDelegate<BRoutePath>
   RouteStatus get routeStatus {
     if (_routeStatus != RouteStatus.register && !hasLogin) {
       return _routeStatus = RouteStatus.login;
-    } else if (video != null) {
-      return _routeStatus = RouteStatus.detail;
     }
-
     return _routeStatus;
   }
 
@@ -131,6 +132,9 @@ class BRouteDelegate extends RouterDelegate<BRoutePath>
             this.notifyListeners();
           },
         ));
+        break;
+      case RouteStatus.notice:
+        page = pageWrap(NoticePage());
         break;
       default:
         break;

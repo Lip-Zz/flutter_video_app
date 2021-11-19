@@ -44,7 +44,7 @@ class HiBanner extends StatelessWidget {
     BannerModel mo = this.bannerList[index];
     return InkWell(
       onTap: () {
-        _handleItemClick(mo);
+        handleItemClick(mo);
       },
       child: Container(
         padding: this.padding,
@@ -58,13 +58,13 @@ class HiBanner extends StatelessWidget {
       ),
     );
   }
+}
 
-  void _handleItemClick(BannerModel mo) {
-    if (mo.type == 'video') {
-      HiNavigator.getInstance().onJumpTo(RouteStatus.detail,
-          args: {'video': VideoModel(url: mo.url)});
-    } else {
-      print("点击跳转到h5,${mo.url}");
-    }
+void handleItemClick(BannerModel mo) {
+  if (mo.type == 'video') {
+    HiNavigator.getInstance()
+        .onJumpTo(RouteStatus.detail, args: {'video': VideoModel(url: mo.url)});
+  } else {
+    HiNavigator.getInstance().launchUrl("https://www.baidu.com");
   }
 }

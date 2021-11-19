@@ -212,9 +212,14 @@ class _HomePageState extends HiState<HomePage>
         color: Colors.grey,
       ),
       Padding(padding: EdgeInsets.only(left: 10)),
-      Icon(
-        Icons.mail,
-        color: Colors.grey,
+      GestureDetector(
+        onTap: () {
+          HiNavigator.getInstance().onJumpTo(RouteStatus.notice);
+        },
+        child: Icon(
+          Icons.mail,
+          color: Colors.grey,
+        ),
       ),
     ];
   }

@@ -9,6 +9,12 @@ class MyPage extends StatefulWidget {
 
 class _MyPageState extends State<MyPage> {
   @override
+  void initState() {
+    super.initState();
+    _loadData();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
@@ -17,4 +23,6 @@ class _MyPageState extends State<MyPage> {
       ),
     );
   }
+
+  void _loadData() {}
 }

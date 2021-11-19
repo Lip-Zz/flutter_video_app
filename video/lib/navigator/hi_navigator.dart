@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:video/navigator/bottom_navigator.dart';
 import 'package:video/page/login_page.dart';
+import 'package:video/page/notice_page.dart';
 import 'package:video/page/register_page.dart';
 import 'package:video/page/video_detail_page.dart';
 
@@ -12,7 +14,7 @@ pageWrap(Widget child) {
 }
 
 /// 自定义路由状态，路由状态
-enum RouteStatus { login, register, home, detail, unkown }
+enum RouteStatus { login, register, home, detail, notice, unkown }
 
 /// 获取page对应的RouteStatus
 RouteStatus getStatus(MaterialPage page) {
@@ -24,6 +26,8 @@ RouteStatus getStatus(MaterialPage page) {
     return RouteStatus.home;
   } else if (page.child is VideoDetailPage) {
     return RouteStatus.detail;
+  } else if (page.child is NoticePage) {
+    return RouteStatus.notice;
   }
 
   return RouteStatus.unkown;
@@ -70,6 +74,16 @@ class HiNavigator extends _RouteJumpListener {
 
   /// 首页底部tab
   RouteStatusInfo? _bottomTab;
+
+  /// 跳转某个链接
+  Future<bool> launchUrl(String url) async {
+    var result = await canLaunch(url);
+    if (result) {
+      return await launch(url);
+    } else {
+      return Future.value(false);
+    }
+  }
 
   /// 首页底部tab切换监听
   void onBottomTabChange(int index, Widget page) {
