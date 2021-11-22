@@ -7,6 +7,8 @@ import 'package:video/util/format_util.dart';
 import 'package:video/util/hi_blur.dart';
 import 'package:video/util/toast.dart';
 import 'package:video/util/view_util.dart';
+import 'package:video/wiget/course_card.dart';
+import 'package:video/wiget/good_card.dart';
 import 'package:video/wiget/hi_banner.dart';
 import 'package:video/wiget/hi_flexble_header.dart';
 
@@ -108,7 +110,13 @@ class _MyPageState extends State<MyPage> with AutomaticKeepAliveClientMixin {
     if (mo == null) {
       return [];
     }
-    return [_banner()];
+    return [
+      _banner(),
+      CourseCard(
+        courseList: mo?.bannerList ?? [],
+      ),
+      GoodCard(courseList: mo?.bannerList ?? [])
+    ];
   }
 
   _profile() {
