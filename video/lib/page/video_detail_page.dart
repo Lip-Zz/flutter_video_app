@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:video/barrage/hi_barrage.dart';
-import 'package:video/barrage/hi_socket.dart';
+import 'package:video/barrage/hi_barrage_input.dart';
 import 'package:video/httpUtils/core/hi_error.dart';
 import 'package:video/httpUtils/dao/video_detail_dao.dart';
 import 'package:video/model/videoDetailModel.dart';
@@ -15,6 +15,7 @@ import 'package:video/wiget/video_header.dart';
 import 'package:video/wiget/video_large_card.dart';
 import 'package:video/wiget/video_toolbar.dart';
 import 'package:video/wiget/video_view.dart';
+import 'package:flutter_overlay/flutter_overlay.dart';
 
 class VideoDetailPage extends StatefulWidget {
   final VideoModel video;
@@ -34,6 +35,7 @@ class _VideoDetailPageState extends State<VideoDetailPage>
   VideoDetailModel? detailMo;
   VideoModel? mo;
   var _barrageKey = GlobalKey<HiBarrageState>();
+  bool _inoutShowing = false;
 
   @override
   void initState() {
@@ -96,13 +98,7 @@ class _VideoDetailPageState extends State<VideoDetailPage>
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             _tabbar(),
-            Padding(
-              padding: EdgeInsets.only(left: 20, right: 10),
-              child: Icon(
-                Icons.live_tv_outlined,
-                color: Colors.grey,
-              ),
-            )
+            _barrage(),
           ],
         ),
       ),
@@ -244,5 +240,29 @@ class _VideoDetailPageState extends State<VideoDetailPage>
               mo: e,
             );
           });
+  }
+
+  _barrage() {
+    return GestureDetector(
+      onTap: () {
+        HiOverlay.show(context, child: HiBarrageInput(
+          onTapClose: () {
+            setState(() {
+              _inoutShowing = false;
+            });
+          },
+        )).then((value) {
+          print("发送弹幕:$value");
+          _barrageKey.currentState?.send(value ?? "");
+        });
+      },
+      child: Padding(
+        padding: EdgeInsets.only(right: 20),
+        child: Icon(
+          Icons.live_tv_outlined,
+          color: Colors.grey,
+        ),
+      ),
+    );
   }
 }

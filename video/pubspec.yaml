@@ -51,6 +51,8 @@ dependencies:
   url_launcher: ^6.0.13
   web_socket_channel: ^2.1.0
 
+  flutter_overlay: ^1.0.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
