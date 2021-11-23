@@ -1,25 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:video/barrage/hi_barrage_transition.dart';
 
 class HiBarrageItem extends StatelessWidget {
   final String vid;
   final double top;
-  final Widget? child;
+  final Widget child;
   final ValueChanged<String>? onComplete;
   final Duration duration;
-  const HiBarrageItem(
-    this.vid, {
+  HiBarrageItem(
+    this.child,
+    this.vid,
+    this.duration, {
     Key? key,
     this.top: 0,
-    this.child,
     this.onComplete,
-    this.duration: const Duration(seconds: 9),
   }) : super(key: key);
+  var _key = GlobalKey<HiBarrageTransitionState>();
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(top: top),
-      child: child,
+    return Positioned.fill(
+      child: HiBarrageTransition(
+        child,
+        duration,
+        (value) {
+          if (onComplete != null) {
+            onComplete!(vid);
+          }
+        },
+        key: _key,
+      ),
     );
   }
 }

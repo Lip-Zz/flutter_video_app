@@ -75,9 +75,10 @@ class HiBarrageState extends State<HiBarrage> implements IBarrage {
     var top = row * rowHeight + widget.top;
     String id = '${_random.nextInt(999999)}:${temp.content}';
     var item = HiBarrageItem(
+      HiBarrageUtil.barrageItemView(temp),
       id,
+      Duration(seconds: 9),
       top: top,
-      child: HiBarrageUtil.barrageItemView(temp),
       onComplete: _onComplete,
     );
     _barrageItemList.add(item);
@@ -147,7 +148,7 @@ class HiBarrageState extends State<HiBarrage> implements IBarrage {
 
   /// 弹幕播放完成
   void _onComplete(value) {
-    print("HiBarrage:播放完毕:$value");
+    print("HiBarrage:播放完毕删除,id:{$value}");
     _barrageItemList.removeWhere((element) => element.vid == value);
   }
 }

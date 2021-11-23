@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:video/model/barrageModel.dart';
 
 class HiBarrageUtil {
-  static Widget? barrageItemView(BarrageModel mo) {
+  static Widget barrageItemView(BarrageModel mo) {
     switch (mo.type) {
       case 0:
         return _type1(mo);
@@ -13,14 +13,14 @@ class HiBarrageUtil {
     }
   }
 
-  static Widget? _type1(BarrageModel mo) {
+  static Widget _type1(BarrageModel mo) {
     return Text(
       mo.content,
       style: TextStyle(color: Colors.white),
     );
   }
 
-  static Widget? _type2(BarrageModel mo) {
+  static Widget _type2(BarrageModel mo) {
     return Center(
       child: Container(
         decoration: BoxDecoration(
