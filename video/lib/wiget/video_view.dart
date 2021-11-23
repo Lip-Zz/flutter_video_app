@@ -14,6 +14,7 @@ class VideoView extends StatefulWidget {
   final bool looping;
   final double aspectRatio;
   final Widget? overlayUI;
+  final Widget? barrageUI;
   VideoView(
     this.url, {
     Key? key,
@@ -22,6 +23,7 @@ class VideoView extends StatefulWidget {
     this.looping: false,
     this.aspectRatio: 16 / 9,
     this.overlayUI,
+    this.barrageUI,
   }) : super(key: key);
   @override
   _VideoViewState createState() => _VideoViewState();
@@ -53,7 +55,9 @@ class _VideoViewState extends State<VideoView> {
       looping: widget.looping,
       allowPlaybackSpeedChanging: false,
       showControlsOnInitialize: true,
-      customControls: MaterialControls(),
+      customControls: MaterialControls(
+        barrageUI: widget.barrageUI,
+      ),
       placeholder: _videoPlaceholder,
       materialProgressColors: _videoProgressColors,
       cupertinoProgressColors: _videoProgressColors,

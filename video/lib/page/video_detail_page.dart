@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:video/barrage/hi_barrage.dart';
+import 'package:video/barrage/hi_socket.dart';
 import 'package:video/httpUtils/core/hi_error.dart';
 import 'package:video/httpUtils/dao/video_detail_dao.dart';
 import 'package:video/model/videoDetailModel.dart';
@@ -31,6 +33,7 @@ class _VideoDetailPageState extends State<VideoDetailPage>
   List<String> tabs = ["简介", "评论"];
   VideoDetailModel? detailMo;
   VideoModel? mo;
+  var _barrageKey = GlobalKey<HiBarrageState>();
 
   @override
   void initState() {
@@ -76,6 +79,11 @@ class _VideoDetailPageState extends State<VideoDetailPage>
       autoPlay: false,
       looping: false,
       overlayUI: videoAppbar(),
+      barrageUI: HiBarrage(
+        mo?.id ?? '-1',
+        key: _barrageKey,
+        autoPlay: true,
+      ),
     );
   }
 
@@ -195,7 +203,7 @@ class _VideoDetailPageState extends State<VideoDetailPage>
   }
 
   void _doUnlike() async {
-    showToast('text');
+    showToast('text1111');
   }
 
   void _doCoin() async {

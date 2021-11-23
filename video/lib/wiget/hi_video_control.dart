@@ -16,7 +16,8 @@ import 'package:video_player/video_player.dart';
 import 'package:chewie/src/material/widgets/playback_speed_dialog.dart';
 
 class MaterialControls extends StatefulWidget {
-  const MaterialControls({Key? key}) : super(key: key);
+  final Widget? barrageUI;
+  const MaterialControls({Key? key, this.barrageUI}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -81,7 +82,8 @@ class _MaterialControlsState extends State<MaterialControls>
                   child: CircularProgressIndicator(),
                 )
               else
-                _buildHitArea(),
+                _buildBarrageUI(),
+              _buildHitArea(),
               _buildActionBar(),
               Column(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -555,5 +557,9 @@ class _MaterialControlsState extends State<MaterialControls>
             ),
       ),
     );
+  }
+
+  _buildBarrageUI() {
+    return widget.barrageUI;
   }
 }
