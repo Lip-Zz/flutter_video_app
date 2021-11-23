@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:video/barrage/hi_barrage.dart';
 import 'package:video/barrage/hi_barrage_input.dart';
+import 'package:video/barrage/hi_barrage_switch.dart';
 import 'package:video/httpUtils/core/hi_error.dart';
 import 'package:video/httpUtils/dao/video_detail_dao.dart';
 import 'package:video/model/videoDetailModel.dart';
@@ -243,26 +244,29 @@ class _VideoDetailPageState extends State<VideoDetailPage>
   }
 
   _barrage() {
-    return GestureDetector(
-      onTap: () {
-        HiOverlay.show(context, child: HiBarrageInput(
-          onTapClose: () {
-            setState(() {
-              _inoutShowing = false;
-            });
-          },
-        )).then((value) {
-          print("发送弹幕:$value");
-          _barrageKey.currentState?.send(value ?? "");
+    return HiBarrageSwitch(
+        inoutShowing: _inoutShowing,
+        onShowInput: () {
+          setState(() {
+            _inoutShowing = true;
+          });
+          HiOverlay.show(context, child: HiBarrageInput(
+            onTapClose: () {
+              setState(() {
+                _inoutShowing = false;
+              });
+            },
+          )).then((value) {
+            print("发送弹幕:$value");
+            _barrageKey.currentState?.send(value ?? "");
+          });
+        },
+        onBarrageSwitch: (value) {
+          if (value) {
+            _barrageKey.currentState?.play();
+          } else {
+            _barrageKey.currentState?.pause();
+          }
         });
-      },
-      child: Padding(
-        padding: EdgeInsets.only(right: 20),
-        child: Icon(
-          Icons.live_tv_outlined,
-          color: Colors.grey,
-        ),
-      ),
-    );
   }
 }
