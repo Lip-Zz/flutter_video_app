@@ -66,7 +66,7 @@ class _FavoriatePageState
     return NavigationBar(
       child: Container(
         alignment: Alignment.center,
-        decoration: bottomBoxShadow(),
+        decoration: bottomBoxShadow(context),
         child: Text(
           "收藏",
           style: TextStyle(fontSize: 16),

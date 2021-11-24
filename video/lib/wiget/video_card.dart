@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:video/model/ownerModel.dart';
 import 'package:video/model/videoModel.dart';
 import 'package:video/navigator/hi_navigator.dart';
+import 'package:video/provider/theme_provider.dart';
 import 'package:video/util/format_util.dart';
 import 'package:video/util/view_util.dart';
+import 'package:provider/provider.dart';
 
 class VideoCard extends StatelessWidget {
   final VideoModel? videoModel;
@@ -11,6 +13,9 @@ class VideoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var themeProvider = context.watch<ThemeProvider>();
+    Color textColor = themeProvider.isDark() ? Colors.white70 : Colors.black87;
+
     return GestureDetector(
       onTap: () {
         HiNavigator.getInstance()
@@ -25,7 +30,7 @@ class VideoCard extends StatelessWidget {
             child: Column(
               children: [
                 _itemImage(context),
-                _infoText(),
+                _infoText(textColor),
               ],
             ),
           ),
@@ -90,7 +95,7 @@ class VideoCard extends StatelessWidget {
     );
   }
 
-  _infoText() {
+  _infoText(Color textColor) {
     return Expanded(
       child: Container(
         padding: EdgeInsets.all(5),
@@ -102,16 +107,16 @@ class VideoCard extends StatelessWidget {
               videoModel?.name ?? "",
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(fontSize: 12, color: Colors.black),
+              style: TextStyle(fontSize: 12, color: textColor),
             ),
-            _owner(),
+            _owner(textColor),
           ],
         ),
       ),
     );
   }
 
-  _owner() {
+  _owner(Color textColor) {
     OwnerModel o = videoModel?.owner ?? OwnerModel();
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -126,7 +131,7 @@ class VideoCard extends StatelessWidget {
               padding: EdgeInsets.only(left: 8),
               child: Text(
                 o.name,
-                style: TextStyle(fontSize: 11, color: Colors.black),
+                style: TextStyle(fontSize: 11, color: textColor),
               ),
             )
           ],

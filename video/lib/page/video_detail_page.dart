@@ -93,7 +93,6 @@ class _VideoDetailPageState extends State<VideoDetailPage>
   _tabNav() {
     return Material(
       elevation: 5,
-      shadowColor: Colors.grey[100],
       child: Container(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

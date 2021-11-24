@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:video/provider/theme_provider.dart';
 import 'package:video/util/view_util.dart';
+import 'package:provider/provider.dart';
 
 enum StatusStyle { Light, Dark }
 
@@ -22,25 +24,34 @@ class NavigationBar extends StatefulWidget {
 }
 
 class _NavigationBarState extends State<NavigationBar> {
+  late StatusStyle _statusStyle;
+  late Color _color;
+
   @override
   void initState() {
     super.initState();
-    _statusBarInit();
+    _statusStyle = widget.statusStyle;
+    _color = widget.color;
   }
 
   @override
   Widget build(BuildContext context) {
+    var themeProvider = context.watch<ThemeProvider>();
+    _color = themeProvider.isDark() ? ThemeColor.dark_bg : widget.color;
+    _statusStyle =
+        themeProvider.isDark() ? StatusStyle.Light : widget.statusStyle;
+    _statusBarInit();
     var top = MediaQuery.of(context).padding.top;
     return Container(
       width: MediaQuery.of(context).size.width,
       height: top + widget.height,
       child: widget.child,
       padding: EdgeInsets.only(top: top),
-      decoration: BoxDecoration(color: widget.color),
+      decoration: BoxDecoration(color: _color),
     );
   }
 
   void _statusBarInit() {
-    changeStatusBar(color: widget.color);
+    changeStatusBar(color: _color, statusStyle: _statusStyle);
   }
 }

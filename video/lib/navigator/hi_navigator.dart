@@ -5,6 +5,7 @@ import 'package:video/page/login_page.dart';
 import 'package:video/page/notice_page.dart';
 import 'package:video/page/register_page.dart';
 import 'package:video/page/video_detail_page.dart';
+import 'package:video/wiget/theme_page.dart';
 
 typedef RouteChangeListener(RouteStatusInfo current, RouteStatusInfo? pre);
 
@@ -14,7 +15,7 @@ pageWrap(Widget child) {
 }
 
 /// 自定义路由状态，路由状态
-enum RouteStatus { login, register, home, detail, notice, unkown }
+enum RouteStatus { login, register, home, detail, notice, theme, unkown }
 
 /// 获取page对应的RouteStatus
 RouteStatus getStatus(MaterialPage page) {
@@ -28,6 +29,8 @@ RouteStatus getStatus(MaterialPage page) {
     return RouteStatus.detail;
   } else if (page.child is NoticePage) {
     return RouteStatus.notice;
+  } else if (page.child is ThemePage) {
+    return RouteStatus.theme;
   }
 
   return RouteStatus.unkown;
@@ -62,6 +65,8 @@ class HiNavigator extends _RouteJumpListener {
     }
     return _instance!;
   }
+
+  RouteStatusInfo? get current => _current;
 
   /// 跳转监听
   RouteJumpListener? _routeJump;

@@ -8,9 +8,12 @@ import 'package:video/page/login_page.dart';
 import 'package:video/page/notice_page.dart';
 import 'package:video/page/register_page.dart';
 import 'package:video/page/video_detail_page.dart';
-import 'package:video/util/color.dart';
+import 'package:video/provider/hi_provider.dart';
+import 'package:video/provider/theme_provider.dart';
 import 'package:video/util/string_util.dart';
 import 'package:video/util/toast.dart';
+import 'package:provider/provider.dart';
+import 'package:video/wiget/theme_page.dart';
 
 void main() {
   runApp(BApp());
@@ -48,9 +51,18 @@ class _BAppState extends State<BApp> {
                 ),
               );
 
-        return MaterialApp(
-          home: routes,
-          theme: ThemeData(primarySwatch: white),
+        return MultiProvider(
+          providers: topProvider,
+          child: Consumer<ThemeProvider>(
+            builder: (context, provider, child) {
+              return MaterialApp(
+                home: routes,
+                theme: provider.getThemeData(),
+                darkTheme: provider.getThemeData(dark: true),
+                themeMode: provider.getThemeMode(),
+              );
+            },
+          ),
         );
       },
     );
@@ -135,6 +147,9 @@ class BRouteDelegate extends RouterDelegate<BRoutePath>
         break;
       case RouteStatus.notice:
         page = pageWrap(NoticePage());
+        break;
+      case RouteStatus.theme:
+        page = pageWrap(ThemePage());
         break;
       default:
         break;

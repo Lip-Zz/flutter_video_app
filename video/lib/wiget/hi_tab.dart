@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:video/provider/theme_provider.dart';
 import 'package:video/util/color.dart';
+import 'package:provider/provider.dart';
 
 class HiTab extends StatelessWidget {
   final List<Widget> tabs;
@@ -21,11 +23,14 @@ class HiTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var themeProvider = context.watch<ThemeProvider>();
+    var _unselectdLabelColor =
+        themeProvider.isDark() ? Colors.white70 : unselectedLabelColor;
     return TabBar(
       controller: controller,
       isScrollable: true,
       labelColor: primary,
-      unselectedLabelColor: unselectedLabelColor,
+      unselectedLabelColor: _unselectdLabelColor,
       labelStyle: TextStyle(fontSize: fontSize),
       indicator: UnderlineTabIndicator(
         borderSide: BorderSide(width: borderWidth, color: primary),

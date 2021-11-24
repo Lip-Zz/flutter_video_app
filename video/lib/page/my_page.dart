@@ -11,6 +11,7 @@ import 'package:video/wiget/course_card.dart';
 import 'package:video/wiget/good_card.dart';
 import 'package:video/wiget/hi_banner.dart';
 import 'package:video/wiget/hi_flexble_header.dart';
+import 'package:video/wiget/theme_item.dart';
 
 class MyPage extends StatefulWidget {
   MyPage({Key? key}) : super(key: key);
@@ -115,7 +116,8 @@ class _MyPageState extends State<MyPage> with AutomaticKeepAliveClientMixin {
       CourseCard(
         courseList: mo?.bannerList ?? [],
       ),
-      GoodCard(courseList: mo?.bannerList ?? [])
+      GoodCard(courseList: mo?.bannerList ?? []),
+      ThemeItem()
     ];
   }
 

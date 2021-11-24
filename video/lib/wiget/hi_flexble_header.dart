@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:video/provider/theme_provider.dart';
 import 'package:video/util/view_util.dart';
+import 'package:provider/provider.dart';
 
 class HiFlexbleHeader extends StatefulWidget {
   final String? name;
@@ -43,6 +45,8 @@ class _HiFlexbleHeaderState extends State<HiFlexbleHeader> {
 
   @override
   Widget build(BuildContext context) {
+    var themeProvider = context.watch<ThemeProvider>();
+    Color textColor = themeProvider.isDark() ? Colors.white70 : Colors.black87;
     return Container(
       alignment: Alignment.bottomLeft,
       padding: EdgeInsets.only(bottom: _dyBottomPadding, left: 10),
@@ -55,7 +59,7 @@ class _HiFlexbleHeaderState extends State<HiFlexbleHeader> {
           hiSpace(width: 8),
           Text(
             widget.name ?? '',
-            style: TextStyle(fontSize: 11, color: Colors.black87),
+            style: TextStyle(fontSize: 11, color: textColor),
           )
         ],
       ),

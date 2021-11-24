@@ -46,7 +46,7 @@ class _RankPageState extends State<RankPage>
   _navbar() {
     return NavigationBar(
       child: Container(
-        decoration: bottomBoxShadow(),
+        decoration: bottomBoxShadow(context),
         alignment: Alignment.center,
         child: HiTab(
           tabs.map((e) {

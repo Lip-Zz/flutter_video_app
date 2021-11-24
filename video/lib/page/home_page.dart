@@ -9,10 +9,12 @@ import 'package:video/navigator/hi_navigator.dart';
 import 'package:video/page/home_tab_page.dart';
 import 'package:video/page/my_page.dart';
 import 'package:video/page/video_detail_page.dart';
+import 'package:video/provider/theme_provider.dart';
 import 'package:video/util/toast.dart';
 import 'package:video/util/view_util.dart';
 import 'package:video/wiget/hi_tab.dart';
 import 'package:video/wiget/navigation_bar.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   final ValueChanged<int>? onJmupTo;
@@ -65,6 +67,12 @@ class _HomePageState extends HiState<HomePage>
   }
 
   @override
+  void didChangePlatformBrightness() {
+    context.read<ThemeProvider>().systemThemeChange();
+    super.didChangePlatformBrightness();
+  }
+
+  @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
     print("AppLifecycleState:$state");
@@ -72,7 +80,10 @@ class _HomePageState extends HiState<HomePage>
       case AppLifecycleState.resumed: //后台切换到前台
         //修复安卓后台切换到前台，状态栏变白色的问题
         if (!(_currentPage is VideoDetailPage)) {
-          changeStatusBar(color: Colors.white, statusStyle: StatusStyle.Dark);
+          changeStatusBar(
+              color: Colors.white,
+              statusStyle: StatusStyle.Dark,
+              context: context);
         }
         break;
       case AppLifecycleState.inactive: //处于这种状态的应用应该假设他们可能在任何时候会暂停
@@ -94,11 +105,10 @@ class _HomePageState extends HiState<HomePage>
           NavigationBar(
             height: 60,
             child: _appbar(),
-            color: Colors.white,
             statusStyle: StatusStyle.Dark,
           ),
           Container(
-            decoration: bottomBoxShadow(),
+            decoration: bottomBoxShadow(context),
             child: _tabBar(),
           ),
           Flexible(
@@ -156,7 +166,6 @@ class _HomePageState extends HiState<HomePage>
 
   _appbar() {
     return Container(
-      decoration: BoxDecoration(color: Colors.white),
       child: Padding(
         padding: EdgeInsets.only(left: 15, right: 15),
         child: Row(
