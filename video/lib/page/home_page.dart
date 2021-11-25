@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:video/core/hi_state.dart';
 import 'package:video/httpUtils/core/hi_error.dart';
@@ -216,9 +219,14 @@ class _HomePageState extends HiState<HomePage>
 
   _buttonItems() {
     return [
-      Icon(
-        Icons.access_alarm,
-        color: Colors.grey,
+      GestureDetector(
+        onTap: () {
+          _crash();
+        },
+        child: Icon(
+          Icons.access_alarm,
+          color: Colors.grey,
+        ),
       ),
       Padding(padding: EdgeInsets.only(left: 10)),
       GestureDetector(
@@ -231,5 +239,52 @@ class _HomePageState extends HiState<HomePage>
         ),
       ),
     ];
+  }
+
+  Future<String> _test() async {
+    // return Future.delayed(Duration(seconds: 1)).then((value) {
+    //   return Future.value('fasdfsdfas');
+    // });
+    // return Future.value('fasdfsdfas');
+
+    return Future.delayed(Duration(seconds: 2), () => 'done');
+  }
+
+  Future _test2() {
+    return Future(() {
+      throw StateError('message');
+    });
+  }
+
+  void _crash() async {
+    Future.delayed(Duration(seconds: 1)).then((value) {
+      //throw StateError('message333') 用这句代码，catchError会警告返回值不对
+      return Future.error(StateError('message111'));
+    }).catchError((e) => print('111:$e'));
+
+    try {
+      await Future.delayed(Duration(seconds: 1)).then((value) {
+        throw StateError('message222');
+        // return Future.error(StateError('message222'));
+      });
+      //.catchError((e) => print('2222:$e')); //加上catcherror，会进入catcherror，会打印出message222，也会进入try catch但捕捉到返回值类型不对的错误
+    } catch (e) {
+      print('222:$e');
+    }
+
+    runZonedGuarded(() {
+      throw StateError('message333');
+    }, (e, s) {
+      print('333:$e,$s');
+    });
+
+    runZonedGuarded(() {
+      Future.delayed(Duration(seconds: 1))
+          .then((value) => throw StateError('message444'));
+    }, (e, s) {
+      print('444:$e,$s');
+    });
+
+    throw StateError("message555");
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:video/db/hi_cache.dart';
 import 'package:video/httpUtils/dao/login_dao.dart';
@@ -10,13 +12,14 @@ import 'package:video/page/register_page.dart';
 import 'package:video/page/video_detail_page.dart';
 import 'package:video/provider/hi_provider.dart';
 import 'package:video/provider/theme_provider.dart';
+import 'package:video/util/hi_defend.dart';
 import 'package:video/util/string_util.dart';
 import 'package:video/util/toast.dart';
 import 'package:provider/provider.dart';
 import 'package:video/wiget/theme_page.dart';
 
 void main() {
-  runApp(BApp());
+  HiDefend().run(BApp());
 }
 
 class BApp extends StatefulWidget {

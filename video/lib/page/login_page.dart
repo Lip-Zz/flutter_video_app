@@ -32,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       appBar: appbar("密码登录", "注册", () {
         HiNavigator.getInstance().onJumpTo(RouteStatus.register);
-      }),
+      }, key: Key('register')),
       body: Container(
         child: ListView(
           children: [

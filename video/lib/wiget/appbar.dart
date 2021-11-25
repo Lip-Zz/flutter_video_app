@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:video/util/view_util.dart';
 
-appbar(String title, String rightTitle, VoidCallback rightButtonClick) {
+appbar(String title, String rightTitle, VoidCallback rightButtonClick,
+    {Key? key}) {
   return AppBar(
     centerTitle: false,
     titleSpacing: 0,
@@ -12,6 +13,7 @@ appbar(String title, String rightTitle, VoidCallback rightButtonClick) {
     ),
     actions: [
       InkWell(
+        key: key,
         onTap: rightButtonClick,
         child: Container(
           padding: EdgeInsets.only(left: 15, right: 15),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_nested/flutter_nested.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:video/core/hi_base_tab_state.dart';
 import 'package:video/httpUtils/dao/home_dao.dart';
@@ -34,31 +35,51 @@ class _HomeTabPageState
     );
   }
 
+  // @override
+  // get contentChild => StaggeredGridView.countBuilder(
+  //     controller: scrollController,
+  //     crossAxisCount: 2,
+  //     itemCount: dataList.length,
+  //     // crossAxisSpacing: 10,
+  //     padding: EdgeInsets.only(top: 10, left: 5, right: 5),
+  //     itemBuilder: (context, index) {
+  //       if (index == 0 && widget.bannerList != null) {
+  //         return Padding(
+  //           padding: EdgeInsets.only(bottom: 8),
+  //           child: _banner(),
+  //         );
+  //       } else {
+  //         return VideoCard(
+  //           videoModel: dataList[index],
+  //         );
+  //       }
+  //     },
+  //     staggeredTileBuilder: (index) {
+  //       if (index == 0 && widget.bannerList != null) {
+  //         return StaggeredTile.fit(2);
+  //       } else {
+  //         return StaggeredTile.fit(1);
+  //       }
+  //     });
+
   @override
-  get contentChild => StaggeredGridView.countBuilder(
-      controller: scrollController,
-      crossAxisCount: 2,
-      itemCount: dataList.length,
-      // crossAxisSpacing: 10,
+  get contentChild => HiNestedScrollView(
       padding: EdgeInsets.only(top: 10, left: 5, right: 5),
-      itemBuilder: (context, index) {
-        if (index == 0 && widget.bannerList != null) {
-          return Padding(
+      headers: [
+        if (widget.bannerList != null)
+          Padding(
             padding: EdgeInsets.only(bottom: 8),
             child: _banner(),
-          );
-        } else {
-          return VideoCard(
-            videoModel: dataList[index],
-          );
-        }
-      },
-      staggeredTileBuilder: (index) {
-        if (index == 0 && widget.bannerList != null) {
-          return StaggeredTile.fit(2);
-        } else {
-          return StaggeredTile.fit(1);
-        }
+          )
+      ],
+      controller: scrollController,
+      itemCount: dataList.length,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2, childAspectRatio: 0.95),
+      itemBuilder: (context, index) {
+        return VideoCard(
+          videoModel: dataList[index],
+        );
       });
 
   @override
