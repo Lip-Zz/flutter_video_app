@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:hi_base/util/view_util.dart';
 import 'package:video/model/videoDetailModel.dart';
 import 'package:video/model/videoModel.dart';
-import 'package:video/util/color.dart';
-import 'package:video/util/format_util.dart';
-import 'package:video/util/view_util.dart';
+import 'package:hi_base/util/color.dart';
+import 'package:hi_base/util/format_util.dart';
 
 class VideoToolBar extends StatelessWidget {
   final VideoModel? mo;

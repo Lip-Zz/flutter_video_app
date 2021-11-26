@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:video/model/barrageModel.dart';
+import 'package:hi_barrage/barrage/barrageModel.dart';
 
 class HiBarrageUtil {
   static Widget barrageItemView(BarrageModel mo) {

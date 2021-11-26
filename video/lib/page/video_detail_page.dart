@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:hi_barrage/hi_barrage.dart';
+import 'package:hi_base/util/toast.dart';
 import 'package:hi_net/core/hi_error.dart';
-import 'package:video/barrage/hi_barrage.dart';
 import 'package:video/barrage/hi_barrage_input.dart';
 import 'package:video/barrage/hi_barrage_switch.dart';
+import 'package:video/db/hi_cache.dart';
+import 'package:video/httpUtils/dao/login_dao.dart';
 import 'package:video/httpUtils/dao/video_detail_dao.dart';
 import 'package:video/model/videoDetailModel.dart';
 import 'package:video/model/videoModel.dart';
-import 'package:video/util/toast.dart';
 import 'package:video/util/view_util.dart';
 import 'package:video/wiget/appbar.dart';
 import 'package:video/wiget/expandable_content.dart';
@@ -84,6 +86,7 @@ class _VideoDetailPageState extends State<VideoDetailPage>
       overlayUI: videoAppbar(),
       barrageUI: HiBarrage(
         mo?.id ?? '-1',
+        {'token': HiCache.getInstance().get(LoginDao.accessTOKEN)},
         key: _barrageKey,
         autoPlay: true,
       ),

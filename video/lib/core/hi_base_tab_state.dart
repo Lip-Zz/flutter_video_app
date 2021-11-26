@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hi_base/util/color.dart';
 import 'package:hi_net/core/hi_error.dart';
-import 'package:video/core/hi_state.dart';
-import 'package:video/util/color.dart';
-import 'package:video/util/toast.dart';
+import 'package:hi_base/util/toast.dart';
+import 'package:hi_base/util/hi_state.dart';
 
 //M为dao返回的数据模型,L为列表数据模型,T为具体的widget
 abstract class HiBaseTabState<M, L, T extends StatefulWidget> extends HiState<T>

@@ -4,7 +4,7 @@ import 'package:video/page/favorite_page.dart';
 import 'package:video/page/home_page.dart';
 import 'package:video/page/my_page.dart';
 import 'package:video/page/rank_page.dart';
-import 'package:video/util/color.dart';
+import 'package:hi_base/util/color.dart';
 
 class BottomNavigator extends StatefulWidget {
   BottomNavigator({Key? key}) : super(key: key);

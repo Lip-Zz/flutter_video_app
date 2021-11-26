@@ -1,8 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:video/httpUtils/dao/login_dao.dart';
-import 'package:video/model/barrageModel.dart';
+import 'package:hi_barrage/barrage/barrageModel.dart';
 import 'package:web_socket_channel/io.dart';
 
 abstract class ISocket {
@@ -18,6 +17,10 @@ class HiSocket extends ISocket {
   static const String _url = "ws://192.168.50.238:2025";
   IOWebSocketChannel? _channel;
   ValueChanged<List<BarrageModel>>? _callBack;
+
+  final Map<String, dynamic> headers;
+
+  HiSocket(this.headers);
 
   /// 心跳间隔
   int _intervaleSeconds = 50;
@@ -36,7 +39,7 @@ class HiSocket extends ISocket {
   @override
   ISocket open(String vid) {
     _channel = IOWebSocketChannel.connect(Uri.parse(_url),
-        headers: _header(), pingInterval: Duration(seconds: _intervaleSeconds));
+        headers: headers, pingInterval: Duration(seconds: _intervaleSeconds));
     _channel?.stream.handleError((error) {
       print('HiSocket:error:${error.toString()}');
     }).listen((message) {
@@ -50,10 +53,6 @@ class HiSocket extends ISocket {
   ISocket send(String message) {
     _channel?.sink.add(message);
     return this;
-  }
-
-  Map<String, dynamic> _header() {
-    return {'a': 'a', 'b': 'b', 'token': LoginDao.getAccessToken()};
   }
 
   _handleMessage(message) {

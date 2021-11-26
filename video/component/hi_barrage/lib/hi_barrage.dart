@@ -1,11 +1,13 @@
+library hi_barrage;
+
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:video/barrage/hi_barrage_item.dart';
-import 'package:video/barrage/hi_barrage_util.dart';
-import 'package:video/barrage/hi_socket.dart';
-import 'package:video/barrage/iBarrage.dart';
-import 'package:video/model/barrageModel.dart';
+import 'package:hi_barrage/barrage/barrageModel.dart';
+import 'package:hi_barrage/barrage/hi_barrage_item.dart';
+import 'package:hi_barrage/barrage/hi_barrage_util.dart';
+import 'package:hi_barrage/barrage/hi_socket.dart';
+import 'package:hi_barrage/barrage/iBarrage.dart';
 
 class HiBarrage extends StatefulWidget {
   final int lineCount;
@@ -13,8 +15,10 @@ class HiBarrage extends StatefulWidget {
   final int speed;
   final double top;
   final bool autoPlay;
+  final Map<String, dynamic> headers;
   HiBarrage(
-    this.vid, {
+    this.vid,
+    this.headers, {
     Key? key,
     this.lineCount: 4,
     this.speed: 800,
@@ -40,7 +44,7 @@ class HiBarrageState extends State<HiBarrage> implements IBarrage {
   @override
   void initState() {
     super.initState();
-    _hiSocket = HiSocket();
+    _hiSocket = HiSocket(widget.headers);
     _hiSocket.open(widget.vid).listen((value) {
       _handleMessage(value);
     });

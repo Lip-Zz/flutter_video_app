@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hi_base/util/hi_blur.dart';
+import 'package:hi_base/util/view_util.dart';
 import 'package:video/model/bannerModel.dart';
-import 'package:video/util/hi_blur.dart';
-import 'package:video/util/view_util.dart';
 import 'package:video/wiget/hi_banner.dart';
 
 class GoodCard extends StatelessWidget {

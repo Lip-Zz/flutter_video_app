@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:video/provider/theme_provider.dart';
-import 'package:video/util/color.dart';
+import 'package:hi_base/util/color.dart';
 
 class ThemePage extends StatefulWidget {
   ThemePage({Key? key}) : super(key: key);

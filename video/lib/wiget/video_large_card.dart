@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hi_base/util/view_util.dart';
 import 'package:video/model/videoModel.dart';
 import 'package:video/navigator/hi_navigator.dart';
-import 'package:video/util/format_util.dart';
-import 'package:video/util/view_util.dart';
+import 'package:hi_base/util/format_util.dart';
 
 class VideoLargeCard extends StatelessWidget {
   final VideoModel? mo;

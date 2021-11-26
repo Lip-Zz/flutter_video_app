@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hi_base/util/view_util.dart';
 import 'package:video/provider/theme_provider.dart';
-import 'package:video/util/view_util.dart';
 import 'package:provider/provider.dart';
 
 class HiFlexbleHeader extends StatefulWidget {

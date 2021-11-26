@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:video/db/hi_cache.dart';
-import 'package:video/util/color.dart';
+import 'package:hi_base/util/color.dart';
 
 extension ThemeModeExtension on ThemeMode {
   String get value => ['System', 'Light', 'Dark'][index];

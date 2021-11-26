@@ -1,6 +1,6 @@
 //hi_barrage.dart
 import 'package:flutter/material.dart';
-import 'package:video/util/color.dart';
+import 'package:hi_base/util/color.dart';
 
 class HiBarrageSwitch extends StatefulWidget {
   ///初始时是否展开

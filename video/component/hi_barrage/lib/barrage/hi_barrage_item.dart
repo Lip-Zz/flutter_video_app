@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:video/barrage/hi_barrage_transition.dart';
+import 'package:hi_barrage/barrage/hi_barrage_transition.dart';
 
 class HiBarrageItem extends StatelessWidget {
   final String vid;

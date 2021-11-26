@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:hi_base/util/view_util.dart';
 import 'package:hi_net/core/hi_error.dart';
 import 'package:video/httpUtils/dao/home_dao.dart';
 import 'package:video/model/homeModel.dart';
-import 'package:video/util/format_util.dart';
-import 'package:video/util/hi_blur.dart';
-import 'package:video/util/toast.dart';
-import 'package:video/util/view_util.dart';
+import 'package:hi_base/util/format_util.dart';
+import 'package:hi_base/util/hi_blur.dart';
+import 'package:hi_base/util/toast.dart';
 import 'package:video/wiget/course_card.dart';
 import 'package:video/wiget/good_card.dart';
 import 'package:video/wiget/hi_banner.dart';

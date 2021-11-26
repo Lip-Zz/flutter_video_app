@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:hi_base/util/hi_defend.dart';
 import 'package:hi_net/core/hi_error.dart';
 import 'package:hi_net/hi_net.dart';
 import 'package:video/db/hi_cache.dart';
@@ -14,9 +15,8 @@ import 'package:video/page/register_page.dart';
 import 'package:video/page/video_detail_page.dart';
 import 'package:video/provider/hi_provider.dart';
 import 'package:video/provider/theme_provider.dart';
-import 'package:video/util/hi_defend.dart';
-import 'package:video/util/string_util.dart';
-import 'package:video/util/toast.dart';
+import 'package:hi_base/util/string_util.dart';
+import 'package:hi_base/util/toast.dart';
 import 'package:provider/provider.dart';
 import 'package:video/wiget/theme_page.dart';
 

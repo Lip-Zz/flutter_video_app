@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:video/util/color.dart';
+import 'package:hi_base/util/color.dart';
 
 class LoginButton extends StatelessWidget {
   final String title;

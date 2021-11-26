@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:video/util/view_util.dart';
+import 'package:hi_base/util/view_util.dart';
 
 appbar(String title, String rightTitle, VoidCallback rightButtonClick,
     {Key? key}) {

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:hi_base/util/view_util.dart';
 import 'package:video/core/hi_base_tab_state.dart';
 import 'package:video/httpUtils/dao/home_dao.dart';
 import 'package:video/model/bannerModel.dart';
 import 'package:video/model/homeModel.dart';
-import 'package:video/util/color.dart';
-import 'package:video/util/view_util.dart';
+import 'package:hi_base/util/color.dart';
 import 'package:video/wiget/hi_banner.dart';
 
 class NoticePage extends StatefulWidget {

@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:hi_net/core/hi_error.dart';
-import 'package:video/core/hi_state.dart';
+import 'package:hi_base/util/hi_state.dart';
 import 'package:video/httpUtils/dao/home_dao.dart';
 import 'package:video/model/bannerModel.dart';
 import 'package:video/model/categoryModel.dart';
@@ -12,7 +12,7 @@ import 'package:video/page/home_tab_page.dart';
 import 'package:video/page/my_page.dart';
 import 'package:video/page/video_detail_page.dart';
 import 'package:video/provider/theme_provider.dart';
-import 'package:video/util/toast.dart';
+import 'package:hi_base/util/toast.dart';
 import 'package:video/util/view_util.dart';
 import 'package:video/wiget/hi_tab.dart';
 import 'package:video/wiget/navigation_bar.dart';
