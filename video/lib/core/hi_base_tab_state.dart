@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hi_net/core/hi_error.dart';
 import 'package:video/core/hi_state.dart';
-import 'package:video/httpUtils/core/hi_error.dart';
 import 'package:video/util/color.dart';
 import 'package:video/util/toast.dart';
 

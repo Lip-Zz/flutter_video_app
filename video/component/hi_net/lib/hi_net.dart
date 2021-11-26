@@ -1,7 +1,10 @@
-import 'package:video/httpUtils/core/dio_adapter.dart';
-import 'package:video/httpUtils/core/hi_error.dart';
-import 'package:video/httpUtils/core/hi_net_adapter.dart';
-import 'package:video/httpUtils/request/base_request.dart';
+library hi_net;
+
+import 'package:hi_net/core/dio_adapter.dart';
+import 'package:hi_net/core/hi_error.dart';
+import 'package:hi_net/core/hi_interceptor.dart';
+import 'package:hi_net/core/hi_net_adapter.dart';
+import 'package:hi_net/request/hi_base_request.dart';
 
 class HiNET {
   HiNET._();
@@ -13,6 +16,8 @@ class HiNET {
     return _instance!;
   }
 
+  HiErrorInterceptor? _hiErrorInterceptor;
+
   // factory HiNET() {
   //   if (_instance == null) {
   //     _instance = HiNET._();
@@ -20,7 +25,7 @@ class HiNET {
   //   return _instance!;
   // }
 
-  Future<HiNETResponse<T>> _send<T>(BaseRequest request) async {
+  Future<HiNETResponse<T>> _send<T>(HiBaseRequest request) async {
     printLog("请求地址(url):${request.url()}");
     printLog("请求类型(method):${request.httpMethod()}");
     printLog("请求头(header):${request.header}");
@@ -33,7 +38,7 @@ class HiNET {
   }
 
   /// 发送请求
-  Future fire(BaseRequest request) async {
+  Future fire(HiBaseRequest request) async {
     HiNETResponse? response;
     var error;
 
@@ -54,18 +59,30 @@ class HiNET {
 
     var statusCode = response?.statucode ?? 0;
     var result = response?.data;
-
+    var hiError;
     switch (statusCode) {
       case 200:
         printLog("请求结果:$result");
         return result;
       case 401:
-        throw NeedLogin();
+        hiError = NeedLogin();
+        break;
       case 403:
-        throw NeedAuth(result.toString(), data: result);
+        hiError = NeedAuth(result.toString(), data: result);
+        break;
       default:
-        throw HiNETError(statusCode, result.toString(), data: result);
+        hiError = HiNETError(statusCode, result.toString(), data: result);
+        break;
     }
+
+    //交给拦截器处理错误
+    if (_hiErrorInterceptor != null) {
+      _hiErrorInterceptor!(hiError);
+    }
+  }
+
+  void setErrorInterceptor(HiErrorInterceptor interceptor) {
+    this._hiErrorInterceptor = interceptor;
   }
 
   printLog(log) {

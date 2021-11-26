@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
-import 'package:video/httpUtils/core/hi_error.dart';
-import 'package:video/httpUtils/core/hi_net_adapter.dart';
-import 'package:video/httpUtils/request/base_request.dart';
+import 'package:hi_net/core/hi_error.dart';
+import 'package:hi_net/core/hi_net_adapter.dart';
+import 'package:hi_net/request/hi_base_request.dart';
 
 class DioAdapter extends HiNETAdapter {
   @override
-  Future<HiNETResponse<T>> send<T>(BaseRequest request) async {
+  Future<HiNETResponse<T>> send<T>(HiBaseRequest request) async {
     var response;
     var options = Options(headers: request.header);
     var error;
@@ -55,7 +55,7 @@ class DioAdapter extends HiNETAdapter {
   }
 
   /// 根据dio的response 生成hinetresponse
-  _buildResponse(Response? response, BaseRequest request) {
+  _buildResponse(Response? response, HiBaseRequest request) {
     return HiNETResponse(
       statucode: response?.statusCode ?? -1,
       request: request,

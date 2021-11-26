@@ -1,5 +1,5 @@
+import 'package:hi_net/hi_net.dart';
 import 'package:video/db/hi_cache.dart';
-import 'package:video/httpUtils/core/hi_net.dart';
 import 'package:video/httpUtils/request/base_request.dart';
 import 'package:video/httpUtils/request/login_request.dart';
 import 'package:video/httpUtils/request/register_request.dart';

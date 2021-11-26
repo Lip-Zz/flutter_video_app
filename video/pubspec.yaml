@@ -23,14 +23,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  
+  hi_net:
+    path: ./component/hi_net
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  dio: ^4.0.0
   json_annotation: ^4.1.0
   shared_preferences: ^2.0.7
-  http: ^0.13.3
   fluttertoast: ^8.0.8
   # flutter_swiper: ^1.1.6
   flutter_swiper_null_safety: ^1.0.0

@@ -1,9 +1,8 @@
 import 'dart:async';
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:hi_net/core/hi_error.dart';
 import 'package:video/core/hi_state.dart';
-import 'package:video/httpUtils/core/hi_error.dart';
 import 'package:video/httpUtils/dao/home_dao.dart';
 import 'package:video/model/bannerModel.dart';
 import 'package:video/model/categoryModel.dart';

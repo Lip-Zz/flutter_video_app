@@ -50,6 +50,10 @@ class HiCache {
     prefs?.setStringList(key, value);
   }
 
+  remove(String key) {
+    prefs?.remove(key);
+  }
+
   T? get<T>(String key) {
     var v = this.prefs?.get(key);
     if (v != null) {

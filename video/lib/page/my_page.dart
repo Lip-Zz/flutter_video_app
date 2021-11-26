@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:video/httpUtils/core/hi_error.dart';
+import 'package:hi_net/core/hi_error.dart';
 import 'package:video/httpUtils/dao/home_dao.dart';
 import 'package:video/model/homeModel.dart';
 import 'package:video/util/format_util.dart';

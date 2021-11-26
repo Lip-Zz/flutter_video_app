@@ -1,14 +1,14 @@
 import 'dart:io';
 
+import 'package:hi_net/core/hi_error.dart';
+import 'package:hi_net/core/hi_net_adapter.dart';
+import 'package:hi_net/request/hi_base_request.dart';
 import 'package:http/io_client.dart';
-import 'package:video/httpUtils/core/hi_error.dart';
-import 'package:video/httpUtils/core/hi_net_adapter.dart';
-import 'package:video/httpUtils/request/base_request.dart';
 import 'package:http/http.dart' as http;
 
 class HttpAdapter extends HiNETAdapter {
   @override
-  Future<HiNETResponse<T>> send<T>(BaseRequest request) async {
+  Future<HiNETResponse<T>> send<T>(HiBaseRequest request) async {
     http.Response? response;
     var error;
     var url = Uri.parse(request.url());
@@ -47,13 +47,13 @@ class HttpAdapter extends HiNETAdapter {
 
   /// 忽略证书
   http.Client sslClient() {
-    var ioClient = new HttpClient()
+    var ioClient = HttpClient()
       ..badCertificateCallback = (cert, host, port) => true;
     http.Client _client = IOClient(ioClient);
     return _client;
   }
 
-  _buildResponse(http.Response? response, BaseRequest request) {
+  _buildResponse(http.Response? response, HiBaseRequest request) {
     return HiNETResponse(
       statucode: response?.statusCode ?? -1,
       request: request,

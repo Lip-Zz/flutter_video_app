@@ -1,4 +1,4 @@
-import 'package:video/httpUtils/core/hi_net.dart';
+import 'package:hi_net/hi_net.dart';
 import 'package:video/httpUtils/request/home_request.dart';
 import 'package:video/model/homeModel.dart';
 

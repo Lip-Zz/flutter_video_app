@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:hi_net/core/hi_error.dart';
+import 'package:hi_net/hi_net.dart';
 import 'package:video/db/hi_cache.dart';
 import 'package:video/httpUtils/dao/login_dao.dart';
 import 'package:video/model/videoModel.dart';
@@ -97,6 +99,16 @@ class BRouteDelegate extends RouterDelegate<BRoutePath>
         },
       ),
     );
+
+    //设置网络错误拦截器
+    HiNET.getInstance().setErrorInterceptor((error) {
+      if (error is NeedLogin) {
+        //清空失效的登录令牌
+        HiCache.getInstance().remove(LoginDao.accessTOKEN);
+        //拉起登录
+        HiNavigator.getInstance().onJumpTo(RouteStatus.login);
+      }
+    });
   }
 
   RouteStatus _routeStatus = RouteStatus.home;

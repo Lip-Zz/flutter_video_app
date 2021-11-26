@@ -1,9 +1,10 @@
 import 'dart:convert';
-import 'package:video/httpUtils/request/base_request.dart';
+
+import 'package:hi_net/request/hi_base_request.dart';
 
 class HiNETResponse<T> {
   T? data;
-  BaseRequest? request;
+  HiBaseRequest? request;
   int? statucode;
   String? statusMessage;
   dynamic extra;
@@ -26,5 +27,5 @@ class HiNETResponse<T> {
 }
 
 abstract class HiNETAdapter {
-  Future<HiNETResponse<T>> send<T>(BaseRequest request);
+  Future<HiNETResponse<T>> send<T>(HiBaseRequest request);
 }

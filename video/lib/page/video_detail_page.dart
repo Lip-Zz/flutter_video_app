@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hi_net/core/hi_error.dart';
 import 'package:video/barrage/hi_barrage.dart';
 import 'package:video/barrage/hi_barrage_input.dart';
 import 'package:video/barrage/hi_barrage_switch.dart';
-import 'package:video/httpUtils/core/hi_error.dart';
 import 'package:video/httpUtils/dao/video_detail_dao.dart';
 import 'package:video/model/videoDetailModel.dart';
 import 'package:video/model/videoModel.dart';
