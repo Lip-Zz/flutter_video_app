@@ -12,9 +12,10 @@ abstract class ISocket {
 }
 
 class HiSocket extends ISocket {
+  static const String _url = "ws://192.168.50.238:2025";
   //https://github.com/magicdam/MagicSocketDebugger
   //https://github.com/rangaofei/SSokit-qmake
-  static const String _url = "ws://192.168.50.238:2025";
+
   IOWebSocketChannel? _channel;
   ValueChanged<List<BarrageModel>>? _callBack;
 
