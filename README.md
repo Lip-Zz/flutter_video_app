@@ -1,7 +1,8 @@
 # flutter_video_app
 ![Flutter](https://img.shields.io/badge/Flutter-2.5.3-green?style=flat-square)   ![Dart](https://img.shields.io/badge/Dart-2.14.4-green?style=flat-square)    ![Platform](https://img.shields.io/badge/Platforms-iOS&Android-green?style=flat-square)     ![Null safety](https://img.shields.io/badge/NullSafety-orange?style=flat-square) 
 
-A flutter exercise project
+A flutter exercise project.
+The login account and password are not verified, please fill in at will.
 
 # Download:
 * [Android](https://github.com/Zhao-Chuan/flutter_video_app/releases/download/1.0.0/app-release.apk)
