@@ -61,6 +61,7 @@ class _BAppState extends State<BApp> {
           child: Consumer<ThemeProvider>(
             builder: (context, provider, child) {
               return MaterialApp(
+                title: 'video', //快照名称，应用进入后台管理，显示的名称
                 home: routes,
                 theme: provider.getThemeData(),
                 darkTheme: provider.getThemeData(dark: true),
